@@ -1,0 +1,17 @@
+<nav class="navbar-tienda" style="background-color: var(--color-principal); color: white;">
+    <div class="contenedor-navbar">
+      <a href="/tiendas/{{ nombre_tienda}}" class="logo-navbar">
+        {% if config.logo_url %}
+          <img src="{{ config.logo_url }}" alt="Logo" class="logo-img">
+          <span class="nombre_tienda">{{ nombre_tienda }}</span>
+        {% endif %}
+      </a>
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="menu-icon">&#9776;</label>
+      <ul class="menu-navbar">
+        <li><a href="#" >Inicio</a></li>
+        <li><a href="#productos">Productos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>

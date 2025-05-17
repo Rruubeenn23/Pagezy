@@ -1,0 +1,92 @@
+.selector-global {
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      input[type="checkbox"] {
+        transform: scale(1.2);
+      }
+    }
+  }
+  
+  .explorador-productos {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .carpeta {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 1rem;
+    background-color: #fafafa;
+  
+    .cabecera-carpeta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      margin-bottom: 1rem;
+  
+      input[type="checkbox"] {
+        margin-right: 0.5rem;
+        transform: scale(1.1);
+      }
+  
+      button.toggle-carpeta {
+        background: none;
+        border: none;
+        color: #303f9f;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+  
+    .contenido-carpeta {
+      display: none;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.5rem;
+  
+      &.abierta {
+        display: flex;
+      }
+  
+      .producto-vaper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 150px;
+        padding: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: white;
+        text-align: center;
+        transition: box-shadow 0.2s;
+  
+        input[type="checkbox"] {
+          margin-bottom: 0.5rem;
+          transform: scale(1.1);
+        }
+  
+        img {
+          height: 80px;
+          object-fit: contain;
+          margin-bottom: 0.5rem;
+        }
+  
+        span {
+          font-size: 0.85rem;
+          color: #333;
+        }
+  
+        &:hover {
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+  }
+  

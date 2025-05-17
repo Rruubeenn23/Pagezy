@@ -1,0 +1,49 @@
+{% extends 'PaginasPresentacion/crear_tienda/base.html' %}
+
+{% block paso_content %}
+<h2>Crear tu tienda - Paso 3: Elige tus productos</h2>
+
+<form method="POST">
+  <div class="selector-global">
+    <label>
+      <input type="checkbox" id="select-all">
+      Seleccionar todos los productos
+    </label>
+  </div>
+
+  <div class="explorador-productos">
+    {% for tipo, vapers in productos_por_tipo.items() %}
+    <div class="carpeta" data-tipo="{{ tipo }}">
+      <div class="cabecera-carpeta">
+        <label>
+          <input type="checkbox" class="select-tipo" data-tipo="{{ tipo }}">
+          📁 {{ tipo }}
+        </label>
+        <button type="button" class="toggle-carpeta">Mostrar</button>
+      </div>
+
+      <div class="contenido-carpeta">
+        {% for producto in vapers %}
+        <label class="producto-vaper">
+          <input type="checkbox" name="productos" value="{{ producto.id }}" class="checkbox-vaper" data-tipo="{{ tipo }}">
+          <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+          <span>{{ producto.nombre }} ({{ producto.caladas }} caladas)</span>
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <button type="submit">Finalizar y crear mi tienda</button>
+</form>
+
+<script type="module" src="{{ url_for('static', filename='js/PaginasPresentacion/crear_tienda/componentes/paso3.js') }}"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("etiqueta-paso").textContent = "3";
+    document.getElementById("progreso").setAttribute("stroke-dasharray", "75, 100");
+  });
+</script>
+{% endblock %}
