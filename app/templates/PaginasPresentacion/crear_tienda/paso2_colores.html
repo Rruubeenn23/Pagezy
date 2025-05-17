@@ -1,0 +1,56 @@
+{% extends 'PaginasPresentacion/crear_tienda/base.html' %}
+
+{% block paso_content %}
+<h2>Crear tu tienda - Paso 2: Estilo visual</h2>
+
+<form method="POST" enctype="multipart/form-data">
+  <label for="color_principal">Color principal</label>
+  <input type="color" name="color_principal" id="color_principal" value="{{ tienda.color_principal or '#303f9f' }}">
+
+  <label for="color_secundario">Color secundario</label>
+  <input type="color" name="color_secundario" id="color_secundario" value="{{ tienda.color_secundario or '#1a237e' }}">
+
+  <label for="color_fondo">Color de fondo</label>
+  <input type="color" name="color_fondo" id="color_fondo" value="{{ tienda.color_fondo or '#ffffff' }}">
+
+  <label for="logo">Logo de la tienda</label>
+  <input type="file" name="logo" id="logo" accept="image/*">
+
+  {% if tienda.logo_url %}
+    <p>Logo actual:</p>
+    <img src="{{ tienda.logo_url }}" alt="Logo actual" style="max-height: 80px;">
+  {% endif %}
+
+  <div id="preview-logo" style="margin-top: 10px;"></div>
+
+  <button type="submit">Siguiente</button>
+</form>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("etiqueta-paso").textContent = "2";
+    document.getElementById("progreso").setAttribute("stroke-dasharray", "50, 100");
+
+    // Previsualizar logo al seleccionarlo
+    const inputLogo = document.getElementById("logo");
+    const previewDiv = document.getElementById("preview-logo");
+
+    inputLogo.addEventListener("change", () => {
+  const file = inputLogo.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      previewDiv.innerHTML = `
+        <p>Previsualización del logo:</p>
+        <img src="${e.target.result}" alt="Previsualización" style="max-height: 80px;">
+      `;
+    };
+    reader.readAsDataURL(file);
+  } else {
+    previewDiv.innerHTML = "";
+  }
+});
+
+  });
+</script>
+{% endblock %}

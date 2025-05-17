@@ -1,0 +1,35 @@
+@import '../../variables';
+
+.grid-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.tarjeta-tienda {
+  border: 1px solid #e0e0e0;
+  padding: 1.5rem;
+  text-align: center;
+  border-radius: 1rem;
+  background-color: #f4f4f4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  img {
+    max-height: 80px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    color: #1a237e;
+    margin: 0;
+  }
+}

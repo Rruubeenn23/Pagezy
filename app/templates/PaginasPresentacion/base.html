@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}PAGEZY{% endblock %}</title>
+  <link rel="icon" href="{{ url_for('static', filename='imgs/pagezy1.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/Presentacion/main.css') }}">
+</head>
+<body>
+  {% include 'PaginasPresentacion/navbar.html' %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include 'PaginasPresentacion/footer.html' %}
+  <script type="module" src="{{ url_for('static', filename='js/PaginasPresentacion/main.js') }}"></script>
+</body>
+</html>

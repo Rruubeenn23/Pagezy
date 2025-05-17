@@ -1,0 +1,17 @@
+{% extends 'PaginasPresentacion/base.html' %}
+
+{% block title %}Crear mi Tienda | PAGEZY{% endblock %}
+
+{% block content %}
+<body data-paso="{{ paso }}">
+<section class="crear-tienda">
+  <div class="ventana">
+    {% include 'PaginasPresentacion/crear_tienda/componentes/progreso.html' %}
+    <div class="contenido-paso">
+      {% block paso_content %}{% endblock %}
+    </div>
+  </div>
+</section>
+</body>
+{% endblock %}
+
