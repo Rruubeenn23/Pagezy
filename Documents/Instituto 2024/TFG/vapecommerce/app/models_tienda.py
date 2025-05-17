@@ -12,6 +12,7 @@ class Producto(db.Model):
     imagen_url = db.Column(db.String(255))
     stock = db.Column(db.Integer, default=0)
     categoria = db.Column(db.String(50))
+    tipo = db.Column(db.String(50))       # ✅ También este
     sabor = db.Column(db.String(100))
     caladas = db.Column(db.Integer)
 

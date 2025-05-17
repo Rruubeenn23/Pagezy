@@ -37,25 +37,24 @@ def paso2(tienda_id):
         tienda.color_secundario = request.form["color_secundario"]
         tienda.color_fondo = request.form["color_fondo"]
 
-        # Guardar logo si se sube
+        # Guardar logo
         logo_file = request.files.get("logo")
         if logo_file and logo_file.filename != "":
             filename = f"{tienda.nombre_tienda}_logo.png"
-
-            # 👇 Carpeta absoluta correcta dentro de app/static/logos
             ruta_static = os.path.join(current_app.root_path, "static", "logos")
             os.makedirs(ruta_static, exist_ok=True)
-
-            # Ruta absoluta final del archivo
             ruta_logo = os.path.join(ruta_static, filename)
             logo_file.save(ruta_logo)
-
-            # Ruta relativa accesible desde el navegador
             tienda.logo_url = f"/static/logos/{filename}"
+            tienda.tipo_web = request.form.get("tipo_web")
+            tienda.plantilla_seleccionada = request.form.get("plantilla")
+
+        # Nuevo: guardar tipo de web y plantilla
+        tienda.tipo_web = request.form.get("tipo_web")
+        tienda.plantilla = request.form.get("plantilla")
 
         tienda.paso_actual = 3
         db.session.commit()
-
         return redirect(url_for("crear_tienda.paso3", tienda_id=tienda.id))
 
     return render_template("PaginasPresentacion/crear_tienda/paso2_colores.html", tienda=tienda, paso=2)
@@ -65,12 +64,17 @@ from collections import defaultdict
 @crear_tienda_bp.route("/<int:tienda_id>/productos", methods=["GET", "POST"])
 def paso3(tienda_id):
     tienda = TiendaEnProceso.query.get_or_404(tienda_id)
+
+    # Si el tipo es "informacion", redirigir a otro paso 3
+    if tienda.tipo_web == "informacion":
+        return redirect(url_for("crear_tienda.paso3_informacion", tienda_id=tienda.id))
+
     productos = ProductoBase.query.all()
 
-    # Agrupar productos por tipo
-    productos_por_tipo = defaultdict(list)
+    # Agrupar productos por tipo general y subtipo
+    productos_por_categoria = defaultdict(lambda: defaultdict(list))
     for p in productos:
-        productos_por_tipo[p.tipo].append(p)
+        productos_por_categoria[p.tipo][p.categoria].append(p)
 
     if request.method == "POST":
         seleccion = request.form.getlist("productos")
@@ -79,13 +83,13 @@ def paso3(tienda_id):
         db.session.commit()
         return redirect(url_for("crear_tienda.resumen_confirmacion", tienda_id=tienda.id))
 
-
     return render_template(
         "PaginasPresentacion/crear_tienda/paso3_productos.html",
         tienda=tienda,
-        productos_por_tipo=productos_por_tipo,
+        productos_por_categoria=productos_por_categoria,
         paso=3
     )
+
 
 
 @crear_tienda_bp.route("/<int:tienda_id>/confirmacion", methods=["GET", "POST"])
@@ -115,7 +119,9 @@ def resumen_confirmacion(tienda_id):
     "color_principal": tienda.color_principal,
     "color_secundario": tienda.color_secundario,
     "color_fondo": tienda.color_fondo,
-    "logo_url": tienda.logo_url or ""
+    "logo_url": tienda.logo_url or "",
+    
+
 }
 
 
