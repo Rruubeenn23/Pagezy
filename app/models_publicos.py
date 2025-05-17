@@ -14,9 +14,10 @@ class TiendaPublica(db.Model):
 # 🔹 Catálogo base de productos que se usan como plantilla inicial
 class ProductoBase(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    tipo = db.Column(db.String(50), nullable=False)  # Ej: Super, Galaxy, etc.
+    tipo = db.Column(db.String(50), nullable=False)  
+    categoria = db.Column(db.String(50), nullable=False)  
     nombre = db.Column(db.String(100), nullable=False)
-    caladas = db.Column(db.Integer, nullable=False)
+    caladas = db.Column(db.Integer, nullable=True)
     precio = db.Column(db.Float)
     imagen_url = db.Column(db.String(255))
 
@@ -36,7 +37,10 @@ class TiendaEnProceso(db.Model):
     color_principal = db.Column(db.String(7))
     color_secundario = db.Column(db.String(7))
     color_fondo = db.Column(db.String(7))
-    logo_url = db.Column(db.String(255))  # ✅ Añadido aquí
+    logo_url = db.Column(db.String(255))  
+    tipo_web = db.Column(db.String(50))
+    plantilla_seleccionada = db.Column(db.String(50))
+
 
     # Paso 3: Productos seleccionados
     productos_seleccionados = db.Column(db.Text)

@@ -23,7 +23,40 @@
 
   <div id="preview-logo" style="margin-top: 10px;"></div>
 
-  <button type="submit">Siguiente</button>
+  <hr>
+
+  <label for="tipo_web">Tipo de web</label>
+  <select name="tipo_web" id="tipo_web">
+    <option value="tienda" {% if tienda.tipo_web == 'tienda' %}selected{% endif %}>Tienda</option>
+    <option value="informacion" {% if tienda.tipo_web == 'informacion' %}selected{% endif %}>Página informativa</option>
+  </select>
+
+  <div id="plantillas-container" style="margin-top: 20px;">
+    <p>Elige una plantilla:</p>
+    <div id="plantillas-tienda" class="grupo-plantillas" style="display: none;">
+      <label>
+        <input type="radio" name="plantilla" value="tienda_1" {% if tienda.plantilla == 'tienda_1' %}checked{% endif %}>
+        <img src="/static/imgs/plantillas/PlantillaTienda1.png" alt="Plantilla Tienda 1" style="max-width: 200px;">
+      </label>
+      <label>
+        <input type="radio" name="plantilla" value="tienda_2" {% if tienda.plantilla == 'tienda_2' %}checked{% endif %}>
+        <img src="/static/imgs/plantillas/PlantillaTienda2.png" alt="Plantilla Tienda 2" style="max-width: 200px;">
+      </label>
+    </div>
+
+    <div id="plantillas-informacion" class="grupo-plantillas" style="display: none;">
+      <label>
+        <input type="radio" name="plantilla" value="info_1" {% if tienda.plantilla == 'info_1' %}checked{% endif %}>
+        <img src="/static/imgs/plantillas/PlantillaInformacion2.png" alt="Plantilla Información 1" style="max-width: 200px;">
+      </label>
+      <label>
+        <input type="radio" name="plantilla" value="info_2" {% if tienda.plantilla == 'info_2' %}checked{% endif %}>
+        <img src="/static/imgs/plantillas/PlantillaInformacion2.png" alt="Plantilla Información 2" style="max-width: 200px;">
+      </label>
+    </div>
+  </div>
+
+  <button type="submit" style="margin-top: 2rem;">Siguiente</button>
 </form>
 
 <script>
@@ -31,26 +64,37 @@
     document.getElementById("etiqueta-paso").textContent = "2";
     document.getElementById("progreso").setAttribute("stroke-dasharray", "50, 100");
 
-    // Previsualizar logo al seleccionarlo
+    const tipoWebSelect = document.getElementById("tipo_web");
+    const tiendaGroup = document.getElementById("plantillas-tienda");
+    const infoGroup = document.getElementById("plantillas-informacion");
+
+    function mostrarPlantillas(tipo) {
+      tiendaGroup.style.display = tipo === "tienda" ? "block" : "none";
+      infoGroup.style.display = tipo === "informacion" ? "block" : "none";
+    }
+
+    tipoWebSelect.addEventListener("change", () => {
+      mostrarPlantillas(tipoWebSelect.value);
+    });
+
+    mostrarPlantillas(tipoWebSelect.value); // Inicializa correctamente
+
+    // Previsualización de logo
     const inputLogo = document.getElementById("logo");
     const previewDiv = document.getElementById("preview-logo");
 
     inputLogo.addEventListener("change", () => {
-  const file = inputLogo.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      previewDiv.innerHTML = `
-        <p>Previsualización del logo:</p>
-        <img src="${e.target.result}" alt="Previsualización" style="max-height: 80px;">
-      `;
-    };
-    reader.readAsDataURL(file);
-  } else {
-    previewDiv.innerHTML = "";
-  }
-});
-
+      const file = inputLogo.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          previewDiv.innerHTML = `<p>Previsualización del logo:</p><img src="${e.target.result}" alt="Previsualización" style="max-height: 80px;">`;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        previewDiv.innerHTML = "";
+      }
+    });
   });
 </script>
 {% endblock %}

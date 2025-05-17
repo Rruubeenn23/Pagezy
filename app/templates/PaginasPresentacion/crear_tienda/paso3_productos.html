@@ -12,23 +12,37 @@
   </div>
 
   <div class="explorador-productos">
-    {% for tipo, vapers in productos_por_tipo.items() %}
-    <div class="carpeta" data-tipo="{{ tipo }}">
+    {% for categoria, tipos in productos_por_categoria.items() %}
+    <div class="carpeta categoria" data-categoria="{{ categoria }}">
       <div class="cabecera-carpeta">
-        <label>
-          <input type="checkbox" class="select-tipo" data-tipo="{{ tipo }}">
-          📁 {{ tipo }}
-        </label>
-        <button type="button" class="toggle-carpeta">Mostrar</button>
+        📦 <strong>{{ categoria }}</strong>
       </div>
 
-      <div class="contenido-carpeta">
-        {% for producto in vapers %}
-        <label class="producto-vaper">
-          <input type="checkbox" name="productos" value="{{ producto.id }}" class="checkbox-vaper" data-tipo="{{ tipo }}">
-          <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
-          <span>{{ producto.nombre }} ({{ producto.caladas }} caladas)</span>
-        </label>
+      <div class="subcarpetas">
+        {% for tipo, productos in tipos.items() %}
+        <div class="carpeta subtipo" data-tipo="{{ tipo }}">
+          <div class="cabecera-carpeta">
+            <label>
+              <input type="checkbox" class="select-tipo" data-tipo="{{ tipo }}">
+              📁 {{ tipo }}
+            </label>
+            <button type="button" class="toggle-carpeta">Mostrar</button>
+          </div>
+
+          <div class="contenido-carpeta">
+            {% for producto in productos %}
+            <label class="producto-vaper">
+              <input type="checkbox" name="productos" value="{{ producto.id }}" class="checkbox-vaper" data-tipo="{{ tipo }}">
+              <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+              <span>{{ producto.nombre }}</span>
+              {% if producto.caladas %}
+              <p>{{ producto.caladas }} caladas</p>
+              {% endif %}
+              <p><strong>{{ producto.precio }} €</strong></p>
+            </label>
+            {% endfor %}
+          </div>
+        </div>
         {% endfor %}
       </div>
     </div>

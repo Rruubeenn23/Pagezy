@@ -37,11 +37,12 @@ def finalizar_tienda(tienda_id):
     for p in productos_base:
         producto = Producto(
             nombre=p.nombre,
+            tipo=p.tipo,
             descripcion="",
             precio=p.precio,
             imagen_url=p.imagen_url,
             stock=20,
-            categoria=p.tipo,
+            categoria=p.categoria,
             sabor="",
             caladas=p.caladas
         )
@@ -52,7 +53,8 @@ def finalizar_tienda(tienda_id):
         color_principal=tienda.color_principal,
         color_secundario=tienda.color_secundario,
         color_fondo=tienda.color_fondo,
-        logo_url=tienda.logo_url
+        logo_url=tienda.logo_url,
+
     )
     session.add(configuracion)
 
@@ -63,9 +65,12 @@ def finalizar_tienda(tienda_id):
         tienda_publica = TiendaPublica(
             nombre_tienda=tienda.nombre_tienda,
             email_contacto=tienda.email,
-            fecha_creacion=datetime.utcnow()
+            fecha_creacion=datetime.utcnow(),
+            tipo_web=tienda.tipo_web,
+            plantilla_seleccionada=tienda.plantilla_seleccionada
         )
         db.session.add(tienda_publica)
+
 
     # ✅ SIEMPRE actualiza la ruta
     tienda_publica.ruta_db = ruta_db
