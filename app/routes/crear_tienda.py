@@ -67,7 +67,7 @@ def paso3(tienda_id):
 
     # Si el tipo es "informacion", redirigir a otro paso 3
     if tienda.tipo_web == "informacion":
-        return redirect(url_for("crear_tienda.paso3_informacion", tienda_id=tienda.id))
+        return redirect(url_for("crear_tienda.resumen_confirmacion", tienda_id=tienda.id))
 
     productos = ProductoBase.query.all()
 
@@ -96,8 +96,13 @@ def paso3(tienda_id):
 def resumen_confirmacion(tienda_id):
     tienda = TiendaEnProceso.query.get_or_404(tienda_id)
 
-    productos_ids = json.loads(tienda.productos_seleccionados)
-    productos = ProductoBase.query.filter(ProductoBase.id.in_(productos_ids)).all()
+    productos_ids = []
+    productos = []
+
+    if tienda.productos_seleccionados:
+        productos_ids = json.loads(tienda.productos_seleccionados)
+        productos = ProductoBase.query.filter(ProductoBase.id.in_(productos_ids)).all()
+
 
     # Agrupar productos seleccionados por tipo
     productos_por_tipo = defaultdict(list)

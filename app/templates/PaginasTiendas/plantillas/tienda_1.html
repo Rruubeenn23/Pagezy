@@ -1,61 +1,60 @@
 {% extends 'PaginasTiendas/base_tienda.html' %}
 
-{% block title %}{{ nombre_tienda }} | Tu tienda personalizada{% endblock %}
+{% block title %}{{ nombre_tienda }}{% endblock %}
 
 {% block content %}
-
-<section class="hero-plantilla1">
-  <div class="contenedor-hero">
-    <div class="texto-hero">
-      <h1>Bienvenido a {{ nombre_tienda }}</h1>
-      <p>POLLITE PELUDA</p>
-      <a href="#productos" class="btn-hero">Más información</a>
-    </div>
-    <div class="imagen-hero">
-      <img src="{{ config.logo_url or '/static/default_placeholder.png' }}" alt="Imagen principal" />
-    </div>
+<header class="navbar-tienda1">
+  <div class="navbar-container">
+    <a href="/" class="navbar-logo">
+      <img src="{{ config.logo_url }}" alt="Logo" class="logo-img">
+      <span class="logo-text">{{ nombre_tienda }}</span>
+    </a>
+    <nav class="navbar-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#productos">Tienda</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#"><button class="btn-sesion">Iniciar sesión</button></a>
+    </nav>
   </div>
-</section>
+</header>
 
-<section class="seccion-servicios">
-  <h2>Nuestros servicios</h2>
-  <div class="servicios-grid">
-    <div class="servicio">
-      <div class="icono-servicio">🛍️</div>
-      <h3>Productos de calidad</h3>
-      <p>Seleccionamos productos cuidadosamente para garantizar la mejor experiencia.</p>
-    </div>
-    <div class="servicio">
-      <div class="icono-servicio">🚚</div>
-      <h3>Envío rápido</h3>
-      <p>Realizamos envíos en 24/48h a toda España para tu comodidad.</p>
-    </div>
-    <div class="servicio">
-      <div class="icono-servicio">📞</div>
-      <h3>Atención personalizada</h3>
-      <p>Estamos aquí para ayudarte en todo momento con soporte rápido y humano.</p>
-    </div>
-  </div>
-</section>
-
-<section class="seccion-slider-productos" id="productos">
-  <h2>Productos destacados</h2>
-  <div class="slider-contenedor">
-    <button class="slider-btn slider-btn-prev" aria-label="Anterior">&#8592;</button>
-    <div class="slider-productos">
-      {% for producto in productos[:6] %}
-      <div class="tarjeta-producto">
+<section class="hero-tienda1" id="inicio">
+  <div class="slider-hero">
+    <div class="slider-track">
+      {% for producto in productos %}
+      <div class="slider-item">
         <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
-        <h3>{{ producto.nombre }}</h3>
-        {% if producto.caladas %}<p>{{ producto.caladas }} caladas</p>{% endif %}
-        <p class="precio">{{ producto.precio }} €</p>
       </div>
       {% endfor %}
     </div>
-    <button class="slider-btn slider-btn-next" aria-label="Siguiente">&#8594;</button>
+  </div>
+
+  <div class="hero-overlay">
+    <div class="hero-contenido">
+      <h1>Tienda online</h1>
+      <a href="#productos" class="btn-hero">Ver productos</a>
+    </div>
   </div>
 </section>
 
-<script type="module" src="{{ url_for('static', filename='js/PaginasTiendas/tienda/tienda.js') }}"></script>
+
+
+<section class="productos-tienda1" id="productos">
+  <div class="productos-grid">
+    {% for producto in productos %}
+    <div class="producto-card">
+      <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+      <h3>{{ producto.nombre }}</h3>
+      <p class="precio">{{ producto.precio | round(2) }} €</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<footer class="footer-tienda1">
+  <p>&copy; {{ current_year }} {{ nombre_tienda }}. Todos los derechos reservados.</p>
+</footer>
+<script type="module" src="{{ url_for('static', filename='js/PaginasTiendas/tienda/plantillas/tienda2.js') }}"></script>
 
 {% endblock %}
+

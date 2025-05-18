@@ -1,0 +1,40 @@
+{% extends 'PaginasTiendas/base_tienda.html' %}
+
+{% block title %}{{ nombre_tienda }} | Información{% endblock %}
+
+{% block content %}
+<header class="info2-header">
+  <div class="info2-navbar">
+    <a href="#" class="info2-logo">
+      {% if config.logo_url %}
+        <img src="{{ config.logo_url }}" alt="Logo">
+      {% else %}
+        <span>LOGO</span>
+      {% endif %}
+    </a>
+    <nav class="info2-links">
+      <a href="#">Inicio</a>
+      <a href="#">Acerca de</a>
+      <a href="#" class="btn-contacto">Contáctanos</a>
+    </nav>
+  </div>
+
+  <div class="info2-hero">
+    <h1 class="titulo">{{ nombre_tienda }}</h1>
+    <p>Este es un texto de ejemplo. Es un espacio ideal pra brindar más detalles sobre tu producto o servicio.</p>
+    <a href="#" class="btn-accion">Empezar</a>
+  </div>
+</header>
+
+<section class="info2-nosotros">
+  <div class="contenedor-nosotros">
+    <div class="texto-nosotros">
+      <h2>Sobre nosotros</h2>
+      <p>Lorem ipsum dolor sit amet. consectetur adipiscing elit, integer nec odio. Praesent libero. Sed cursus antem dapibus diam.</p>
+    </div>
+    <div class="imagen-nosotros">
+      <div class="placeholder-imagen">Imagen</div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -31,8 +31,11 @@ def finalizar_tienda(tienda_id):
     db_tienda_modelo.Model.metadata.create_all(bind=engine)
 
     # Insertar productos seleccionados
-    productos_ids = json.loads(tienda.productos_seleccionados)
-    productos_base = ProductoBase.query.filter(ProductoBase.id.in_(productos_ids)).all()
+    productos_base = []
+
+    if tienda.productos_seleccionados:
+        productos_ids = json.loads(tienda.productos_seleccionados)
+        productos_base = ProductoBase.query.filter(ProductoBase.id.in_(productos_ids)).all()
 
     for p in productos_base:
         producto = Producto(
@@ -47,6 +50,7 @@ def finalizar_tienda(tienda_id):
             caladas=p.caladas
         )
         session.add(producto)
+
 
     # Insertar configuración visual
     configuracion = ConfiguracionVisual(
