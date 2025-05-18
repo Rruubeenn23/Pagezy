@@ -12,7 +12,7 @@ class Producto(db.Model):
     imagen_url = db.Column(db.String(255))
     stock = db.Column(db.Integer, default=0)
     categoria = db.Column(db.String(50))
-    tipo = db.Column(db.String(50))       # ✅ También este
+    tipo = db.Column(db.String(50))
     sabor = db.Column(db.String(100))
     caladas = db.Column(db.Integer)
 
@@ -66,3 +66,4 @@ class ConfiguracionVisual(db.Model):
     color_secundario = db.Column(db.String(7))
     color_fondo = db.Column(db.String(7))
     logo_url = db.Column(db.String(255))
+    plantilla = db.Column(db.String(50))

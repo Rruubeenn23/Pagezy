@@ -54,6 +54,8 @@ def finalizar_tienda(tienda_id):
         color_secundario=tienda.color_secundario,
         color_fondo=tienda.color_fondo,
         logo_url=tienda.logo_url,
+        plantilla=tienda.plantilla
+
 
     )
     session.add(configuracion)

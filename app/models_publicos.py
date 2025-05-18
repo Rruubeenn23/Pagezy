@@ -39,7 +39,7 @@ class TiendaEnProceso(db.Model):
     color_fondo = db.Column(db.String(7))
     logo_url = db.Column(db.String(255))  
     tipo_web = db.Column(db.String(50))
-    plantilla_seleccionada = db.Column(db.String(50))
+    plantilla = db.Column(db.String(50))
 
 
     # Paso 3: Productos seleccionados
