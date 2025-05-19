@@ -32,22 +32,22 @@
   <div class="hero-overlay">
     <div class="hero-contenido">
       <h1>{{ config.titulo_tienda or 'Tienda online' }}</h1>
-      <a href="#productos" class="btn-hero">Ver productos</a>
+      <a href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda) }}" class="btn-hero">Ver productos</a>
     </div>
   </div>
 </section>
 
-
-
-
 <section class="productos-tienda1" id="productos">
   <div class="productos-grid">
     {% for producto in productos %}
-    <div class="producto-card">
-      <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
-      <h3>{{ producto.nombre }}</h3>
-      <p class="precio">{{ producto.precio | round(2) }} €</p>
-    </div>
+    <a href="">
+      <div class="producto-card">
+        <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+        <h3>{{ producto.nombre }}</h3>
+        <p class="precio">{{ producto.precio | round(2) }} €</p>
+      </div>
+    </a>
+
     {% endfor %}
   </div>
 </section>

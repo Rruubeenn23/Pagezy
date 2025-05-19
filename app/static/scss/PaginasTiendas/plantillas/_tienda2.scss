@@ -1,6 +1,5 @@
 .navbar-tienda2 {
   background-color: white;
-  border-bottom: 3px solid var(--color-principal);
   padding: 1rem 2rem;
 
   .navbar-contenedor {
@@ -123,11 +122,22 @@
   max-width: 1200px;
   margin: auto;
 
+  a {
+    text-decoration: none;
+    color: var(--color-secundario);
+  }
+
   .producto-item {
     background: #f9f9f9;
     padding: 1.5rem;
     border-radius: 8px;
     text-align: center;
+    min-height: 300px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; // en caso de usar margin-top auto abajo
+    height: 100%;
 
     img {
       height: 160px;
@@ -151,6 +161,7 @@
     }
 
     .btn-comprar {
+      margin-top: auto; // esta es la clave
       background-color: var(--color-principal);
       color: white;
       padding: 0.6rem 1.5rem;

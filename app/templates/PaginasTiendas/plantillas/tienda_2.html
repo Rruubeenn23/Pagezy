@@ -30,13 +30,16 @@
 </section>
 
 <section class="productos-grid" id="productos">
-  {% for producto in productos[:6] %}
-  <div class="producto-item">
-    <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
-    <h3>{{ producto.nombre }}</h3>
-    <p class="precio">{{ producto.precio }} €</p>
-    <button class="btn-comprar">Añadir al carrito</button>
-  </div>
+  {% for producto in productos[:8] %}
+  <a href="">
+    <div class="producto-item">
+      <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+      <h3>{{ producto.nombre }}</h3>
+      <p class="precio">{{ producto.precio }} €</p>
+      <button class="btn-comprar">Añadir al carrito</button>
+    </div>
+  </a>
+
   {% endfor %}
 </section>
 
