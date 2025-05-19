@@ -86,9 +86,9 @@
       align-items: center;
 
       img {
-        max-height: 150%;
-        max-width: 150%;
-        object-fit: contain;
+        max-height: inherit;
+        max-width: inherit;
+        object-fit: fill;
         filter: brightness(0.4);
       }
     }

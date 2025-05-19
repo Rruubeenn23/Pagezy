@@ -37,7 +37,7 @@ def paso2(tienda_id):
         tienda.color_secundario = request.form["color_secundario"]
         tienda.color_fondo = request.form["color_fondo"]
 
-        # Guardar logo
+        # Logo
         logo_file = request.files.get("logo")
         if logo_file and logo_file.filename != "":
             filename = f"{tienda.nombre_tienda}_logo.png"
@@ -46,12 +46,28 @@ def paso2(tienda_id):
             ruta_logo = os.path.join(ruta_static, filename)
             logo_file.save(ruta_logo)
             tienda.logo_url = f"/static/logos/{filename}"
-            tienda.tipo_web = request.form.get("tipo_web")
-            tienda.plantilla_seleccionada = request.form.get("plantilla")
 
-        # Nuevo: guardar tipo de web y plantilla
+        # Tipo y plantilla
         tienda.tipo_web = request.form.get("tipo_web")
         tienda.plantilla = request.form.get("plantilla")
+
+        # Título descriptivo
+        tienda.titulo_tienda = request.form.get("titulo_tienda")
+
+        # Imágenes tienda
+        imagenes_urls = []
+        for key in request.form:
+            if key.startswith("imagenes_tienda_"):
+                url = request.form[key].strip()
+                if url:
+                    imagenes_urls.append(url)
+        
+        tienda.descripcion_portfolio = request.form.get("descripcion_portfolio")
+        tienda.imagen_portfolio = request.form.get("imagen_portfolio")
+        tienda.sobre_nosotros = request.form.get("sobre_nosotros")
+        tienda.servicios_portfolio = request.form.get("servicios_portfolio")
+
+        tienda.imagenes_tienda = json.dumps(imagenes_urls)  # Guardamos como string JSON
 
         tienda.paso_actual = 3
         db.session.commit()

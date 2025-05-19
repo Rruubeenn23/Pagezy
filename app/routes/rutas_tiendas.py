@@ -3,6 +3,7 @@ from flask import Blueprint, render_template
 from sqlalchemy import create_engine, MetaData, Table
 from app.models_publicos import TiendaPublica
 import random
+import json
 
 
 # Crear blueprint para las tiendas públicas
@@ -19,14 +20,26 @@ def ver_tienda(nombre_tienda):
     config_table = metadata.tables["configuracion_visual"]
     producto_table = metadata.tables["producto"]
 
+    
+
     with engine.connect() as connection:
         config_data = connection.execute(config_table.select()).mappings().fetchone()
+        imagenes = []
+        if config_data["imagenes_tienda"]:
+            try:
+                imagenes = json.loads(config_data["imagenes_tienda"])
+            except Exception:
+                imagenes = []
         configuracion = {
             "color_principal": config_data["color_principal"],
             "color_secundario": config_data["color_secundario"],
             "color_fondo": config_data["color_fondo"],
             "logo_url": config_data["logo_url"],
-            "plantilla": config_data.get("plantilla", "tienda_1")
+            "plantilla": config_data.get("plantilla", "tienda_1"),
+            "descripcion_portfolio": config_data.get("descripcion_portfolio"),
+            "imagen_portfolio": config_data.get("imagen_portfolio"),
+            "sobre_nosotros": config_data.get("sobre_nosotros"),
+            "servicios_portfolio": config_data.get("servicios_portfolio")
         }
 
         productos_result = connection.execute(producto_table.select()).mappings().fetchall()
@@ -34,8 +47,10 @@ def ver_tienda(nombre_tienda):
         productos = random.sample(productos, min(5, len(productos)))  # <-- ALEATORIOS
 
     return render_template(f"PaginasTiendas/plantillas/{configuracion['plantilla']}.html",
-                           config=configuracion,
-                           productos=productos,
-                           nombre_tienda=tienda_publica.nombre_tienda)
+                            config=configuracion,
+                            productos=productos,
+                            nombre_tienda=tienda_publica.nombre_tienda,
+                            imagenes=imagenes)
+                           
 
 

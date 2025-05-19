@@ -58,10 +58,16 @@ def finalizar_tienda(tienda_id):
         color_secundario=tienda.color_secundario,
         color_fondo=tienda.color_fondo,
         logo_url=tienda.logo_url,
-        plantilla=tienda.plantilla
-
-
+        plantilla=tienda.plantilla,
+        titulo_tienda=tienda.titulo_tienda,
+        imagenes_tienda=tienda.imagenes_tienda,
+        descripcion_portfolio=tienda.descripcion_portfolio,
+        imagen_portfolio=tienda.imagen_portfolio,
+        sobre_nosotros=tienda.sobre_nosotros,
+        servicios_portfolio=tienda.servicios_portfolio
     )
+
+
     session.add(configuracion)
 
     # Registrar tienda públicamente si no existe

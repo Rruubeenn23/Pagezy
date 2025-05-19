@@ -21,31 +21,41 @@
 <section class="info-hero" id="inicio">
   <div class="info-contenido">
     <div class="texto">
-      <h1>Título de la página</h1>
-      <p>Este es un texto de ejemplo para describir un poco el contenido de la página. Puedes añadir aquí información relevante que quieras destacar.</p>
+      <h1>{{ nombre_tienda }}</h1>
+      <p>{{ config.descripcion_portfolio or 'Aquí irá la descripción principal de tu página informativa.' }}</p>
       <a href="#contacto" class="btn-info">Más información</a>
     </div>
     <div class="imagen">
-      <div class="placeholder-img">Imagen</div>
+      {% if config.imagen_portfolio %}
+        <img class="placeholder-img" src="{{ config.imagen_portfolio }}" alt="Imagen principal">
+      {% else %}
+        <div class="placeholder-img">Imagen</div>
+      {% endif %}
     </div>
   </div>
 </section>
 
+
 <section class="info-servicios" id="servicios">
   <h2>Nuestros servicios</h2>
   <div class="servicios-grid">
-    <div class="servicio-card">
-      <div class="servicio-icon"></div>
-      <h3>Servicio 1</h3>
-    </div>
-    <div class="servicio-card">
-      <div class="servicio-icon"></div>
-      <h3>Servicio 2</h3>
-    </div>
-    <div class="servicio-card">
-      <div class="servicio-icon"></div>
-      <h3>Servicio 3</h3>
-    </div>
+    {% if config.servicios_portfolio %}
+      {% for servicio in config.servicios_portfolio.split(',') %}
+      <div class="servicio-card">
+        <div class="servicio-icon"></div>
+        <h3>{{ servicio.strip() }}</h3>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="servicio-card">
+        <div class="servicio-icon"></div>
+        <h3>Servicio 1</h3>
+      </div>
+      <div class="servicio-card">
+        <div class="servicio-icon"></div>
+        <h3>Servicio 2</h3>
+      </div>
+    {% endif %}
   </div>
 </section>
 {% endblock %}

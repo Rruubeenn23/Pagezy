@@ -41,6 +41,17 @@ class TiendaEnProceso(db.Model):
     tipo_web = db.Column(db.String(50))
     plantilla = db.Column(db.String(50))
 
+    # Campos nuevos
+    
+    # Campos nuevos
+    titulo_tienda = db.Column(db.String(255), nullable=True)
+    imagenes_tienda = db.Column(db.Text, nullable=True)
+    descripcion_portfolio = db.Column(db.Text, nullable=True)
+    imagen_portfolio = db.Column(db.String(255), nullable=True)
+    sobre_nosotros = db.Column(db.Text, nullable=True)
+    servicios_portfolio = db.Column(db.Text, nullable=True)
+
+
 
     # Paso 3: Productos seleccionados
     productos_seleccionados = db.Column(db.Text)

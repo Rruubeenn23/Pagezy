@@ -21,9 +21,9 @@
 <section class="hero-tienda1" id="inicio">
   <div class="slider-hero">
     <div class="slider-track">
-      {% for producto in productos %}
+      {% for imagen in imagenes %}
       <div class="slider-item">
-        <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+        <img src="{{ imagen }}" alt="Imagen personalizada">
       </div>
       {% endfor %}
     </div>
@@ -31,11 +31,12 @@
 
   <div class="hero-overlay">
     <div class="hero-contenido">
-      <h1>Tienda online</h1>
+      <h1>{{ config.titulo_tienda or 'Tienda online' }}</h1>
       <a href="#productos" class="btn-hero">Ver productos</a>
     </div>
   </div>
 </section>
+
 
 
 

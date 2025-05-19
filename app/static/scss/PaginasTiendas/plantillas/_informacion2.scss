@@ -1,7 +1,7 @@
 .info2-header {
   background-color: white;
   padding: 2rem 2rem 4rem;
-  color: var(--color-secundario);
+  color: var(--color-principal);
 
   .info2-navbar {
     display: flex;
@@ -23,7 +23,7 @@
         font-weight: 500;
 
         &.btn-contacto {
-          background-color: var(--color-secundario);
+          background-color: var(--color-principal);
           color: white;
           padding: 0.5rem 1rem;
           border-radius: 6px;
@@ -50,8 +50,9 @@
       margin: 0 auto 2rem;
     }
 
+
     .btn-accion {
-      background-color: var(--color-secundario);
+      background-color: var(--color-principal);
       color: white;
       padding: 0.6rem 1.4rem;
       border-radius: 6px;
@@ -103,6 +104,10 @@
         justify-content: center;
         font-size: 1.2rem;
         color: #777;
+      }
+      img {
+        height: 100%;
+        width: 100%;
       }
     }
   }

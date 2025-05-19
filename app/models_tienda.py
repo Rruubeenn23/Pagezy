@@ -60,10 +60,20 @@ class Compra(db.Model):
     producto = db.relationship('Producto')
 
 class ConfiguracionVisual(db.Model):
-    __tablename__ = "configuracion_visual"  
+    __tablename__ = "configuracion_visual"
     id = db.Column(db.Integer, primary_key=True)
+
     color_principal = db.Column(db.String(7))
     color_secundario = db.Column(db.String(7))
     color_fondo = db.Column(db.String(7))
     logo_url = db.Column(db.String(255))
     plantilla = db.Column(db.String(50))
+
+    # Campos nuevos
+    titulo_tienda = db.Column(db.String(255), nullable=True)
+    imagenes_tienda = db.Column(db.Text, nullable=True)
+    descripcion_portfolio = db.Column(db.Text, nullable=True)
+    imagen_portfolio = db.Column(db.String(255), nullable=True)
+    sobre_nosotros = db.Column(db.Text, nullable=True)
+    servicios_portfolio = db.Column(db.Text, nullable=True)
+
