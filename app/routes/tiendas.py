@@ -7,3 +7,4 @@ tiendas_bp = Blueprint("tiendas", __name__, url_prefix="/pages")
 def lista_tiendas():
     tiendas = TiendaPublica.query.all()
     return render_template("PaginasPresentacion/tiendas/lista_tiendas.html", tiendas=tiendas)
+
