@@ -150,7 +150,7 @@ def resumen_confirmacion(tienda_id):
         finalizar_tienda(tienda.id)
 
 
-        return redirect(url_for("home"))
+        return redirect(url_for("crear_tienda.tienda_creada", tienda_id=tienda.id))
 
     return render_template(
         "PaginasPresentacion/crear_tienda/resumen_confirmacion.html",
@@ -158,3 +158,8 @@ def resumen_confirmacion(tienda_id):
         productos_por_tipo=productos_por_tipo,
         paso=4
     )
+
+@crear_tienda_bp.route("/<int:tienda_id>/creada")
+def tienda_creada(tienda_id):
+    tienda = TiendaEnProceso.query.get_or_404(tienda_id)
+    return render_template("PaginasPresentacion/crear_tienda/animacion.html", tienda=tienda)
