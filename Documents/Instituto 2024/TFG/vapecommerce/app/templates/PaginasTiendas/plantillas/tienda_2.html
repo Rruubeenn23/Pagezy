@@ -1,0 +1,50 @@
+{% extends 'PaginasTiendas/base_tienda.html' %}
+
+{% block title %}{{ nombre_tienda }} | Bienvenido{% endblock %}
+
+{% block content %}
+
+<header class="navbar-tienda2">
+  <div class="navbar-contenedor">
+    <a href="/" class="navbar-logo">
+      {% if config.logo_url %}
+        <img src="{{ config.logo_url }}" alt="Logo" class="logo-img">
+      {% endif %}
+      <span class="nombre-tienda">{{ nombre_tienda }}</span>
+    </a>
+    <nav class="navbar-links">
+      <a href="#">Inicio</a>
+      <a href="#productos">Tienda</a>
+      <a href="#">Contacto</a>
+      <a href="#" class="carrito-icon">🛒</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero-tienda2">
+  <div class="hero-contenido">
+    <h1>Bienvenido a {{ nombre_tienda }}</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <a href="#productos" class="btn-explorar">Explorar productos</a>
+  </div>
+</section>
+
+<section class="productos-grid" id="productos">
+  {% for producto in productos[:8] %}
+  <a href="">
+    <div class="producto-item">
+      <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+      <h3>{{ producto.nombre }}</h3>
+      <p class="precio">{{ producto.precio }} €</p>
+      <button class="btn-comprar">Añadir al carrito</button>
+    </div>
+  </a>
+
+  {% endfor %}
+</section>
+
+<footer class="footer-tienda2">
+  <p>&copy; {{ 2024 }} {{ nombre_tienda }}. Todos los derechos reservados.</p>
+</footer>
+
+{% endblock %}

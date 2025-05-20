@@ -31,8 +31,11 @@ def finalizar_tienda(tienda_id):
     db_tienda_modelo.Model.metadata.create_all(bind=engine)
 
     # Insertar productos seleccionados
-    productos_ids = json.loads(tienda.productos_seleccionados)
-    productos_base = ProductoBase.query.filter(ProductoBase.id.in_(productos_ids)).all()
+    productos_base = []
+
+    if tienda.productos_seleccionados:
+        productos_ids = json.loads(tienda.productos_seleccionados)
+        productos_base = ProductoBase.query.filter(ProductoBase.id.in_(productos_ids)).all()
 
     for p in productos_base:
         producto = Producto(
@@ -48,14 +51,23 @@ def finalizar_tienda(tienda_id):
         )
         session.add(producto)
 
+
     # Insertar configuración visual
     configuracion = ConfiguracionVisual(
         color_principal=tienda.color_principal,
         color_secundario=tienda.color_secundario,
         color_fondo=tienda.color_fondo,
         logo_url=tienda.logo_url,
-
+        plantilla=tienda.plantilla,
+        titulo_tienda=tienda.titulo_tienda,
+        imagenes_tienda=tienda.imagenes_tienda,
+        descripcion_portfolio=tienda.descripcion_portfolio,
+        imagen_portfolio=tienda.imagen_portfolio,
+        sobre_nosotros=tienda.sobre_nosotros,
+        servicios_portfolio=tienda.servicios_portfolio
     )
+
+
     session.add(configuracion)
 
     # Registrar tienda públicamente si no existe

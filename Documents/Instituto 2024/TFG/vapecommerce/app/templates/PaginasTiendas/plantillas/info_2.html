@@ -1,0 +1,46 @@
+{% extends 'PaginasTiendas/base_tienda.html' %}
+
+{% block title %}{{ nombre_tienda }} | Información{% endblock %}
+
+{% block content %}
+<header class="info2-header" id="inicio">
+  <div class="info2-navbar">
+    <a href="#" class="info2-logo">
+      {% if config.logo_url %}
+        <img src="{{ config.logo_url }}" alt="Logo">
+      {% else %}
+        <span>LOGO</span>
+      {% endif %}
+    </a>
+    <nav class="info2-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#acerca">Acerca de</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#contacto" class="btn-contacto">Contáctanos</a>
+    </nav>
+  </div>
+
+  <div class="info2-hero">
+    <h1 class="titulo">{{ nombre_tienda }}</h1>
+    <p>{{ config.descripcion_portfolio or 'Este es un texto de ejemplo. Es un espacio ideal para brindar más detalles sobre tu producto o servicio.' }}</p>
+    <a href="#contacto" class="btn-accion">Empezar</a>
+  </div>
+</header>
+
+<section class="info2-nosotros" id="acerca">
+  <div class="contenedor-nosotros">
+    <div class="texto-nosotros">
+      <h2>Sobre nosotros</h2>
+      <p>{{ config.sobre_nosotros or 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.' }}</p>
+    </div>
+    <div class="imagen-nosotros">
+      {% if config.imagen_portfolio %}
+        <img src="{{ config.imagen_portfolio }}" alt="Imagen sobre nosotros">
+      {% else %}
+        <div class="placeholder-imagen">Imagen</div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

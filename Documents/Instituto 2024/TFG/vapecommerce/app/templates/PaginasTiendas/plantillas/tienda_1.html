@@ -1,0 +1,61 @@
+{% extends 'PaginasTiendas/base_tienda.html' %}
+
+{% block title %}{{ nombre_tienda }}{% endblock %}
+
+{% block content %}
+<header class="navbar-tienda1">
+  <div class="navbar-container">
+    <a href="/" class="navbar-logo">
+      <img src="{{ config.logo_url }}" alt="Logo" class="logo-img">
+      <span class="logo-text">{{ nombre_tienda }}</span>
+    </a>
+    <nav class="navbar-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#productos">Tienda</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#"><button class="btn-sesion">Iniciar sesión</button></a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero-tienda1" id="inicio">
+  <div class="slider-hero">
+    <div class="slider-track">
+      {% for imagen in imagenes %}
+      <div class="slider-item">
+        <img src="{{ imagen }}" alt="Imagen personalizada">
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="hero-overlay">
+    <div class="hero-contenido">
+      <h1>{{ config.titulo_tienda or 'Tienda online' }}</h1>
+      <a href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda) }}" class="btn-hero">Ver productos</a>
+    </div>
+  </div>
+</section>
+
+<section class="productos-tienda1" id="productos">
+  <div class="productos-grid">
+    {% for producto in productos %}
+    <a href="">
+      <div class="producto-card">
+        <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+        <h3>{{ producto.nombre }}</h3>
+        <p class="precio">{{ producto.precio | round(2) }} €</p>
+      </div>
+    </a>
+
+    {% endfor %}
+  </div>
+</section>
+
+<footer class="footer-tienda1">
+  <p>&copy; {{ current_year }} {{ nombre_tienda }}. Todos los derechos reservados.</p>
+</footer>
+<script type="module" src="{{ url_for('static', filename='js/PaginasTiendas/tienda/plantillas/tienda2.js') }}"></script>
+
+{% endblock %}
+

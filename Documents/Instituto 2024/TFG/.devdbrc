@@ -1,0 +1,18 @@
+[
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\vapecommerce\\instance\\main_placeholder.db"
+  },
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\vapecommerce\\app\\instance\\tiendas\\Ruben's Portfolio 1.db"
+  },
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\vapecommerce\\app\\instance\\tiendas\\Test.db"
+  },
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\vapecommerce\\app\\instance\\tiendas\\Tienda.db"
+  }
+]

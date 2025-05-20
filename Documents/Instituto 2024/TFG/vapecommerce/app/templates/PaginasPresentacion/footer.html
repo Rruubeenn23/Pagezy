@@ -3,15 +3,15 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <img src="{{ url_for('static', filename='imgs/pagezy1.png') }}" alt="PAGEZY Logo">
-        <p>Tu plataforma para vender vapers de forma sencilla y legal.</p>
+        <p>La plataforma para crear webs de forma sencilla.</p>
       </div>
 
       <div class="footer-links">
         <h4>Enlaces</h4>
         <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Nuestras Tiendas</a></li>
-          <li><a href="#">Crea tu Tienda</a></li>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="{{ url_for('tiendas.lista_tiendas') }}">Nuestras Páginas</a></li>
+          <li><a href="{{ url_for('crear_tienda.paso1') }}">Crea tu Página</a></li>
         </ul>
       </div>
 
