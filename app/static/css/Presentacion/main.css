@@ -152,6 +152,66 @@
   color: #aaa;
 }
 
+.como-funciona {
+  background-color: #f4f4f4;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+.como-funciona h2 {
+  font-size: 2.2rem;
+  color: #1a237e;
+}
+.como-funciona .pasos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.como-funciona .pasos .paso {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 280px;
+}
+.como-funciona .pasos .paso h3 {
+  color: #303f9f;
+  margin-bottom: 0.5rem;
+}
+.como-funciona .pasos .paso p {
+  color: #444;
+}
+
+.cta-final {
+  background-color: #1a237e;
+  color: white;
+  text-align: center;
+  padding: 4rem 2rem;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+}
+.cta-final h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+.cta-final p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+.cta-final .btn-cta {
+  background-color: #fff;
+  color: #1a237e;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+.cta-final .btn-cta:hover {
+  background-color: #ddd;
+}
+
 .hero-carousel {
   position: relative;
   width: 100%;
@@ -220,37 +280,6 @@
 .hero-carousel .carousel-indicators .dot.active {
   background-color: #fff;
   transform: scale(1.4);
-}
-
-.como-funciona {
-  background-color: #f4f4f4;
-  padding: 4rem 2rem;
-  text-align: center;
-}
-.como-funciona h2 {
-  font-size: 2.2rem;
-  color: #1a237e;
-}
-.como-funciona .pasos {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2rem;
-  margin-top: 2rem;
-}
-.como-funciona .pasos .paso {
-  background: white;
-  border: 1px solid #ddd;
-  padding: 2rem;
-  border-radius: 12px;
-  width: 280px;
-}
-.como-funciona .pasos .paso h3 {
-  color: #303f9f;
-  margin-bottom: 0.5rem;
-}
-.como-funciona .pasos .paso p {
-  color: #444;
 }
 
 .planes {
@@ -331,35 +360,6 @@
   font-style: normal;
   color: #1a237e;
   font-weight: bold;
-}
-
-.cta-final {
-  background-color: #1a237e;
-  color: white;
-  text-align: center;
-  padding: 4rem 2rem;
-  margin-bottom: 2rem;
-  border-radius: 10px;
-}
-.cta-final h2 {
-  font-size: 2.2rem;
-  margin-bottom: 1rem;
-}
-.cta-final p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-}
-.cta-final .btn-cta {
-  background-color: #fff;
-  color: #1a237e;
-  padding: 0.75rem 2rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s;
-}
-.cta-final .btn-cta:hover {
-  background-color: #ddd;
 }
 
 .crear-tienda {

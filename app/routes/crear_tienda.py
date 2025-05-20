@@ -7,7 +7,7 @@ import os
 
 
 
-crear_tienda_bp = Blueprint('crear_tienda', __name__, url_prefix="/crear-tienda")
+crear_tienda_bp = Blueprint('crear_tienda', __name__, url_prefix="/pages/create")
 
 @crear_tienda_bp.route("/", methods=["GET", "POST"])
 def paso1():

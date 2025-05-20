@@ -14,7 +14,7 @@
     </a>
     <nav class="navbar-links">
       <a href="#">Inicio</a>
-      <a href="#productos">Tienda</a>
+      <a href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda) }}">Tienda</a>
       <a href="#">Contacto</a>
       <a href="#" class="carrito-icon">🛒</a>
     </nav>
@@ -25,7 +25,7 @@
   <div class="hero-contenido">
     <h1>Bienvenido a {{ nombre_tienda }}</h1>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    <a href="#productos" class="btn-explorar">Explorar productos</a>
+    <a href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda) }}" class="btn-explorar">Explorar productos</a>
   </div>
 </section>
 

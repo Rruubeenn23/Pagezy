@@ -1,0 +1,42 @@
+{% extends 'PaginasTiendas/base_tienda.html' %}
+
+{% block title %}{{ nombre_tienda }} | Información{% endblock %}
+
+{% block content %}
+
+{# Si la plantilla es info_1, incluye sus bloques #}
+{% if config.plantilla == "info_1" %}
+  {% include 'PaginasTiendas/plantillas/info/components/navbar_info1.html' %}
+  {% include 'PaginasTiendas/plantillas/info/components/nosotros_info.html' %}
+
+{# Si la plantilla es info_2, incluye sus bloques #}
+{% elif config.plantilla == "info_2" %}
+    <header class="info2-header" id="inicio">
+        {% include 'PaginasTiendas/plantillas/info/components/navbar_info2.html' %} 
+    </header>
+
+  {% include 'PaginasTiendas/plantillas/info/components/servicios_info.html' %}
+{% endif %}
+
+<section class="info-contacto" id="contacto">
+  <div class="contacto-contenido">
+    <h2>Contáctanos</h2>
+    <p>Si deseas obtener más información o tienes alguna consulta, no dudes en comunicarte con nosotros. Estamos aquí para ayudarte.</p>
+    <p>Estaremos encantados de asistirte con cualquier duda sobre nuestros servicios o sobre cómo colaborar con nuestra empresa.</p>
+    <p>Responderemos a tu mensaje lo antes posible, en horario laboral de lunes a viernes. También puedes encontrarnos en redes sociales o enviarnos un mensaje directamente por correo.</p>
+
+    <div class="contacto-datos">
+      {% if telefono %}
+        <p><strong>Teléfono:</strong> {{ telefono }}</p>
+      {% endif %}
+      {% if email %}
+        <p><strong>Email:</strong> <a href="mailto:{{ email }}">{{ email }}</a></p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% include 'PaginasTiendas/plantillas/info/components/footer_info.html' %}
+
+
+{% endblock %}

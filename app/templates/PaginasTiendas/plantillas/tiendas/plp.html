@@ -7,7 +7,7 @@
 {% if config.plantilla == "tienda_1" %}
   <header class="navbar-tienda1">
     <div class="navbar-container">
-      <a href="/tiendas/{{ nombre_tienda}}" class="navbar-logo">
+      <a href="/pages/{{ nombre_tienda}}" class="navbar-logo">
         <img src="{{ config.logo_url }}" alt="Logo" class="logo-img">
         <span class="logo-text">{{ nombre_tienda }}</span>
       </a>
@@ -36,7 +36,7 @@
 {% elif config.plantilla == "tienda_2" %}
   <header class="navbar-tienda2">
     <div class="navbar-contenedor">
-      <a href="/tiendas/{{ nombre_tienda}}" class="navbar-logo">
+      <a href="/pages/{{ nombre_tienda}}" class="navbar-logo">
         {% if config.logo_url %}
           <img src="{{ config.logo_url }}" alt="Logo" class="logo-img">
         {% endif %}
