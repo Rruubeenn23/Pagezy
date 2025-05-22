@@ -46,7 +46,6 @@ def finalizar_tienda(tienda_id):
             imagen_url=p.imagen_url,
             stock=20,
             categoria=p.categoria,
-            sabor="",
             caladas=p.caladas
         )
         session.add(producto)

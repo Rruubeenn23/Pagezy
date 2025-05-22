@@ -1,0 +1,206 @@
+{% extends 'PaginasTiendas/base_tienda.html' %}
+
+{% block title %}Panel de Administración | {{ nombre_tienda }}{% endblock %}
+
+{% block content %}
+
+{% if config.plantilla == "tienda_1" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/navbar1.html' %}
+{% elif config.plantilla == "tienda_2" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/navbar2.html' %}
+{% endif %}
+
+<section class="admin-panel">
+  <div class="admin-sidebar">
+    <h2>Panel de administración</h2>
+    <ul>
+        <li id="btn-clientes">📁 Clientes</li>
+        <li id="btn-pedidos">📁 Pedidos</li>
+        <li id="btn-compras">📁 Compras</li>
+        <li id="btn-productos">📁 Productos</li>
+        <li id="btn-vendedores">📁 Vendedores</li>
+    </ul>
+  </div>
+
+  <div class="admin-contenido">
+  <div id="seccion-clientes" class="tabla-seccion">
+    <h3>Clientes</h3>
+    {% if clientes %}
+      <table>
+        <thead>
+          <tr>
+            {% for key in clientes[0].keys() %}
+            <th>{{ key }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for cliente in clientes %}
+          <tr>
+            {% for value in cliente.values() %}
+            <td>{{ value }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No hay clientes registrados.</p>
+    {% endif %}
+  </div>
+
+  <div id="seccion-pedidos" class="tabla-seccion" style="display: none;">
+    <h3>Pedidos</h3>
+    {% if pedidos %}
+      <table>
+        <thead>
+          <tr>
+            {% for key in pedidos[0].keys() %}
+            <th>{{ key }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for pedido in pedidos %}
+          <tr>
+            {% for value in pedido.values() %}
+            <td>{{ value }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No hay pedidos registrados.</p>
+    {% endif %}
+  </div>
+
+  <div id="seccion-compras" class="tabla-seccion" style="display: none;">
+    <h3>Compras</h3>
+    {% if compras %}
+      <table>
+        <thead>
+          <tr>
+            {% for key in compras[0].keys() %}
+            <th>{{ key }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for compra in compras %}
+          <tr>
+            {% for value in compra.values() %}
+            <td>{{ value }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No hay compras registradas.</p>
+    {% endif %}
+  </div>
+
+  <div id="seccion-productos" class="tabla-seccion" style="display: none;">
+    <h3>Productos</h3>
+    {% if productos %}
+      <table>
+        <thead>
+          <tr>
+            {% for key in productos[0].keys() %}
+            <th>{{ key }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for producto in productos %}
+          <tr>
+            {% for value in producto.values() %}
+                <td>
+                    {% if loop.index0 == 4 %}  {# El índice del campo 'imagen_url' si siempre va en esa posición #}
+                    <img src="{{ value }}" alt="Imagen" style="max-height: 60px;">
+                    {% else %}
+                    {{ value }}
+                    {% endif %}
+                </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No hay productos registrados.</p>
+    {% endif %}
+  </div>
+
+  <div id="seccion-vendedores" class="tabla-seccion" style="display: none;">
+    <h3>Vendedores</h3>
+    {% if vendedores %}
+      <table>
+        <thead>
+          <tr>
+            {% for key in vendedores[0].keys() %}
+            <th>{{ key }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for vendedor in vendedores %}
+          <tr>
+            {% for value in vendedor.values() %}
+            <td>{{ value }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No hay vendedores registrados.</p>
+    {% endif %}
+  </div>
+</section>
+
+
+{% if config.plantilla == "tienda_1" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/footer1.html' %}
+{% elif config.plantilla == "tienda_2" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/footer2.html' %}
+{% endif %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const botones = {
+      clientes: document.getElementById("btn-clientes"),
+      pedidos: document.getElementById("btn-pedidos"),
+      compras: document.getElementById("btn-compras"),
+      productos: document.getElementById("btn-productos"),
+      vendedores: document.getElementById("btn-vendedores"),
+    };
+
+    const secciones = {
+      clientes: document.getElementById("seccion-clientes"),
+      pedidos: document.getElementById("seccion-pedidos"),
+      compras: document.getElementById("seccion-compras"),
+      productos: document.getElementById("seccion-productos"),
+      vendedores: document.getElementById("seccion-vendedores"),
+    };
+
+    Object.keys(botones).forEach(seccion => {
+      botones[seccion].addEventListener("click", () => {
+        // Oculta todas las secciones
+        Object.values(secciones).forEach(div => div.style.display = "none");
+        Object.values(botones).forEach(btn => btn.classList.remove("active"));
+
+        // Muestra la seleccionada
+        secciones[seccion].style.display = "block";
+        botones[seccion].classList.add("active");
+      });
+    });
+
+    // Mostrar por defecto "clientes"
+    botones["clientes"].click();
+  });
+</script>
+
+
+{% endblock %}

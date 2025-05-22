@@ -8,11 +8,12 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     db.init_app(app)
+    app.secret_key = "TFG-DAM-2025"      
 
     # Rutas
-    from app.routes.crear_tienda import crear_tienda_bp
-    from app.routes.tiendas import tiendas_bp
-    from app.routes.rutas_tiendas import tienda_bp
+    from app.routes.crear_web import crear_tienda_bp
+    from app.routes.webs import tiendas_bp
+    from app.routes.rutas_webs import tienda_bp
     app.register_blueprint(crear_tienda_bp)
     app.register_blueprint(tiendas_bp)
     app.register_blueprint(tienda_bp)

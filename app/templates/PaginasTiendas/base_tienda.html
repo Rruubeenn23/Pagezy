@@ -227,11 +227,8 @@
         return;
       }
 
-      const nombre = prompt("Tu nombre:");
-      const email = prompt("Correo electrónico:");
-      const telefono = prompt("Teléfono:");
-      const direccion = prompt("Dirección de entrega:");
-      const data = { carrito, metodo_pago: metodo, nombre, email, telefono, direccion };
+      const data = { carrito, metodo_pago: metodo }; // Los datos del cliente vienen del backend
+
 
       try {
         const url = window.location.pathname.split("/")[2];  // Asume `/pages/<nombre_tienda>/...`

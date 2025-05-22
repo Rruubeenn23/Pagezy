@@ -7,8 +7,44 @@
     <nav class="navbar-links">
       <a href="/pages/{{ nombre_tienda }}">Inicio</a>
       <a href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda) }}">Tienda</a>
-      <a href="#nosotros">Nosotros</a>
+
+      {% if session.get("cliente_nombre") %}
+        <div class="dropdown">
+          <button class="dropdown-toggle">
+            👤 {{ session.get("cliente_nombre") }}
+          </button>
+          <div class="dropdown-menu">
+            <a href="{{ url_for('tienda_publica.cuenta', nombre_tienda=nombre_tienda) }} ">Cuenta</a>
+            <a href="{{ url_for('tienda_publica.logout', nombre_tienda=nombre_tienda) }}">Cerrar sesión</a>
+          </div>
+        </div>
+      {% else %}
+        <a href="{{ url_for('tienda_publica.login', nombre_tienda=nombre_tienda) }}">
+          Iniciar sesión
+        </a>
+      {% endif %}
+
+
       <a href="#" class="carrito-icon">🛒</a>
     </nav>
   </div>
 </header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.querySelector('.dropdown-toggle');
+    const menu = document.querySelector('.dropdown-menu');
+
+    if (toggle) {
+      toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+      });
+
+      // Cierra el menú si haces clic fuera
+      document.addEventListener('click', () => {
+        menu.style.display = 'none';
+      });
+    }
+  });
+</script>

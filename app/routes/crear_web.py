@@ -4,7 +4,9 @@ import json
 from app import db
 from collections import defaultdict
 import os
-
+from werkzeug.security import generate_password_hash
+from app.models_tienda import Administrador
+from sqlalchemy import create_engine, MetaData, Table
 
 
 crear_tienda_bp = Blueprint('crear_tienda', __name__, url_prefix="/pages/create")
@@ -159,6 +161,29 @@ def resumen_confirmacion(tienda_id):
         from app.db_manager import finalizar_tienda
         finalizar_tienda(tienda.id)
 
+        # Crear administrador por defecto
+        aruta_db = os.path.join("databases", f"{tienda.nombre_tienda}.db")  # o como esté definido en tu sistema
+        engine = create_engine(f"sqlite:///{tienda_publica.ruta_db}")
+        metadata = MetaData()
+        metadata.reflect(bind=engine)
+
+        if "administrador" in metadata.tables:
+            administrador_table = metadata.tables["administrador"]
+
+            with engine.begin() as conn:
+                # Verificar si ya existe un admin
+                admin_existente = conn.execute(
+                    administrador_table.select().where(administrador_table.c.usuario == "admin")
+                ).fetchone()
+
+                if not admin_existente:
+                    conn.execute(
+                        administrador_table.insert().values(
+                            usuario="admin",
+                            contraseña=generate_password_hash("admin"),
+                            email=tienda.email
+                        )
+                    )
 
         return redirect(url_for("crear_tienda.tienda_creada", tienda_id=tienda.id))
 

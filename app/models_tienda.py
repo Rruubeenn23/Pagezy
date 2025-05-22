@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db
 
@@ -13,7 +14,6 @@ class Producto(db.Model):
     stock = db.Column(db.Integer, default=0)
     categoria = db.Column(db.String(50))
     tipo = db.Column(db.String(50))
-    sabor = db.Column(db.String(100))
     caladas = db.Column(db.Integer)
 
 class Cliente(db.Model):
@@ -23,7 +23,13 @@ class Cliente(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     telefono = db.Column(db.String(20))
     direccion = db.Column(db.String(255))
-    fecha_registro = db.Column(db.DateTime, default=datetime.utcnow)
+    password_hash = db.Column(db.String(255), nullable=False)  # 🔐 Contraseña hasheada
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
 class Administrador(db.Model):
     __tablename__ = "administrador"  

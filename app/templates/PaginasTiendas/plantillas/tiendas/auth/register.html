@@ -1,0 +1,50 @@
+{% extends 'PaginasTiendas/base_tienda.html' %}
+
+{% block title %}Registro | {{ nombre_tienda }}{% endblock %}
+
+{% block content %}
+
+{% if config.plantilla == "tienda_1" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/navbar1.html' %}
+{% elif config.plantilla == "tienda_2" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/navbar2.html' %}
+{% endif %}
+
+<section class="login-seccion" style="background-image: url('{{ config.imagenes_tienda[0] if config.imagenes_tienda else NULL }}')">
+  <div class="login-box">
+    <h2>Crear cuenta</h2>
+
+    {% with mensajes = get_flashed_messages(with_categories=true) %}
+        {% if mensajes %}
+            <div class="mensajes-flash">
+            {% for categoria, mensaje in mensajes %}
+                <div class="mensaje {{ categoria }}">{{ mensaje }}</div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+
+    <form method="POST" action="{{ url_for('tienda_publica.register', nombre_tienda=nombre_tienda) }}">
+      <input type="text" name="nombre" placeholder="Tu nombre completo" required>
+      <input type="email" name="email" placeholder="Correo electrónico" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+      <button type="submit" class="btn-principal">Registrarse</button>
+    </form>
+
+    <p>
+      ¿Ya tienes cuenta? 
+      <a href="{{ url_for('tienda_publica.login', nombre_tienda=nombre_tienda) }}">Inicia sesión</a>
+    </p>
+  </div>
+</section>
+
+{% if config.plantilla == "tienda_1" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/footer1.html' %}
+{% elif config.plantilla == "tienda_2" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/footer2.html' %}
+{% endif %}
+
+
+
+{% endblock %}

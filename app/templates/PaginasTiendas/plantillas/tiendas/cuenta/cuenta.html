@@ -1,0 +1,57 @@
+{% extends 'PaginasTiendas/base_tienda.html' %}
+
+{% block title %}Mi cuenta | {{ nombre_tienda }}{% endblock %}
+
+{% block content %}
+
+{# --- NAVBAR dinámico --- #}
+{% if config.plantilla == "tienda_1" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/navbar1.html' %}
+{% elif config.plantilla == "tienda_2" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/navbar2.html' %}
+{% endif %}
+
+<div class="cuenta-container">
+  <h2>Cuenta de {{ cliente.nombre }}</h2>
+  <p><strong>Email:</strong> {{ cliente.email }}</p>
+  <p><strong>Teléfono:</strong> {{ cliente.telefono }}</p>
+  <p><strong>Dirección:</strong> {{ cliente.direccion }}</p>
+
+  <hr>
+  <h3>Compras</h3>
+  {% if compras %}
+    <table>
+      <thead>
+        <tr>
+          <th>Pedido</th>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Precio Unitario</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for compra in compras %}
+          <tr>
+            <td data-label="Pedido">#{{ compra.pedido_id }}</td>
+            <td data-label="Producto">{{ compra.producto }}</td>
+            <td data-label="Cantidad">{{ compra.cantidad }}</td>
+            <td data-label="Precio Unitario">{{ compra.precio_unitario }}€</td>
+            <td data-label="Subtotal">{{ compra.subtotal | round(2) }}€</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No hay compras registradas.</p>
+  {% endif %}
+</div>
+
+{# --- FOOTER dinámico --- #}
+{% if config.plantilla == "tienda_1" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/footer1.html' %}
+{% elif config.plantilla == "tienda_2" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/footer2.html' %}
+{% endif %}
+
+{% endblock %}
