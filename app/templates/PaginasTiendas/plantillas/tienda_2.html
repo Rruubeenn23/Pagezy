@@ -4,22 +4,8 @@
 
 {% block content %}
 
-<header class="navbar-tienda2">
-  <div class="navbar-contenedor">
-    <a href="/" class="navbar-logo">
-      {% if config.logo_url %}
-        <img src="{{ config.logo_url }}" alt="Logo" class="logo-img">
-      {% endif %}
-      <span class="nombre-tienda">{{ nombre_tienda }}</span>
-    </a>
-    <nav class="navbar-links">
-      <a href="#">Inicio</a>
-      <a href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda) }}">Tienda</a>
-      <a href="#">Contacto</a>
-      <a href="#" class="carrito-icon">🛒</a>
-    </nav>
-  </div>
-</header>
+{% include 'PaginasTiendas/plantillas/tiendas/components/navbar2.html' %}
+
 
 <section class="hero-tienda2">
   <div class="hero-contenido">
@@ -31,20 +17,24 @@
 
 <section class="productos-grid" id="productos">
   {% for producto in productos[:8] %}
-  <a href="">
-    <div class="producto-item">
+  <div class="producto-item">
+    <a href="{{ url_for('tienda_publica.ver_producto', nombre_tienda=nombre_tienda, producto_id=producto.id) }}">
       <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
       <h3>{{ producto.nombre }}</h3>
       <p class="precio">{{ producto.precio }} €</p>
-      <button class="btn-comprar">Añadir al carrito</button>
-    </div>
-  </a>
+    </a>
+    <button class="btn-carrito" id="btn-agregar-carrito"
+      data-id="{{ producto.id }}"
+      data-nombre="{{ producto.nombre }}"
+      data-precio="{{ producto.precio }}"
+      data-imagen="{{ producto.imagen_url or '' }}">
+      Añadir al carrito 🛒
+    </button>
+  </div>
 
   {% endfor %}
 </section>
 
-<footer class="footer-tienda2">
-  <p>&copy; {{ 2024 }} {{ nombre_tienda }}. Todos los derechos reservados.</p>
-</footer>
+{% include 'PaginasTiendas/plantillas/tiendas/components/footer2.html' %}
 
 {% endblock %}

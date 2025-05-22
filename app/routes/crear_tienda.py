@@ -65,7 +65,17 @@ def paso2(tienda_id):
         tienda.descripcion_portfolio = request.form.get("descripcion_portfolio")
         tienda.imagen_portfolio = request.form.get("imagen_portfolio")
         tienda.sobre_nosotros = request.form.get("sobre_nosotros")
-        tienda.servicios_portfolio = request.form.get("servicios_portfolio")
+        
+        # Recoger servicios individuales
+        servicios = []
+        for key in request.form:
+            if key.startswith("servicios_portfolio_"):
+                valor = request.form[key].strip()
+                if valor:
+                    servicios.append(valor)
+
+        tienda.servicios_portfolio = ", ".join(servicios)
+
 
         tienda.imagenes_tienda = json.dumps(imagenes_urls)  # Guardamos como string JSON
 

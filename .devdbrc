@@ -6,5 +6,13 @@
   {
     "type": "sqlite",
     "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\pagezy\\instance\\main_placeholder.db"
+  },
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\pagezy\\app\\instance\\tiendas\\VapeCommerce.db"
+  },
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\pagezy\\app\\instance\\tiendas\\Informacion 1.db"
   }
 ]

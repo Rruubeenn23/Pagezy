@@ -1,0 +1,16 @@
+<header class="navbar-tienda2">
+  <div class="navbar-contenedor">
+    <a href="/pages/{{ nombre_tienda }}" class="navbar-logo">
+      {% if config.logo_url %}
+        <img src="{{ config.logo_url }}" alt="Logo" class="logo-img">
+      {% endif %}
+      <span class="nombre-tienda">{{ nombre_tienda }}</span>
+    </a>
+    <nav class="navbar-links">
+      <a href="/pages/{{ nombre_tienda }}">Inicio</a>
+      <a href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda) }}">Tienda</a>
+      <a href="#">Contacto</a>
+      <a href="#" class="carrito-icon">🛒</a>
+    </nav>
+  </div>
+</header>

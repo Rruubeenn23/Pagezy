@@ -83,8 +83,10 @@
     <label for="sobre_nosotros">Sobre nosotros</label>
     <textarea name="sobre_nosotros" id="sobre_nosotros" rows="3">{{ tienda.sobre_nosotros or '' }}</textarea>
 
-    <label for="servicios_portfolio">Servicios del portfolio</label>
-    <textarea name="servicios_portfolio" id="servicios_portfolio" rows="3">{{ tienda.servicios_portfolio or '' }}</textarea>
+    <label for="num_servicios">¿Cuántos servicios quieres mostrar? (máximo 3)</label>
+    <input type="number" id="num_servicios" min="0" max="3" value="0">
+
+    <div id="servicios_inputs" style="margin-top: 1rem;"></div>
   </div>
 
 
@@ -152,6 +154,28 @@
         imagenesContainer.appendChild(input);
       }
     });
+
+    // Generar inputs de servicios dinámicamente
+    const numServiciosInput = document.getElementById("num_servicios");
+    const serviciosContainer = document.getElementById("servicios_inputs");
+
+    numServiciosInput.addEventListener("input", () => {
+      serviciosContainer.innerHTML = "";
+      const cantidad = Math.min(parseInt(numServiciosInput.value) || 0, 3);
+
+      for (let i = 1; i <= cantidad; i++) {
+        const label = document.createElement("label");
+        label.textContent = `Servicio ${i}`;
+        const input = document.createElement("input");
+        input.type = "text";
+        input.name = `servicios_portfolio_${i}`;
+        input.placeholder = `Ej: Diseño personalizado`;
+
+        serviciosContainer.appendChild(label);
+        serviciosContainer.appendChild(input);
+      }
+    });
+
 
     
   });

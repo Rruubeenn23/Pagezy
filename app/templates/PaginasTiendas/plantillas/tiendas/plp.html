@@ -5,24 +5,11 @@
 {% block content %}
 
 {% if config.plantilla == "tienda_1" %}
-  <header class="navbar-tienda1">
-    <div class="navbar-container">
-      <a href="/pages/{{ nombre_tienda}}" class="navbar-logo">
-        <img src="{{ config.logo_url }}" alt="Logo" class="logo-img">
-        <span class="logo-text">{{ nombre_tienda }}</span>
-      </a>
-      <nav class="navbar-links">
-        <a href="#inicio">Inicio</a>
-        <a href="#productos">Tienda</a>
-        <a href="#nosotros">Nosotros</a>
-        <a href="#"><button class="btn-sesion">Iniciar sesión</button></a>
-      </nav>
-    </div>
-  </header>
+  {% include 'PaginasTiendas/plantillas/tiendas/components/navbar1.html' %}
   <section class="productos-tienda1" id="productos">
     <div class="productos-grid">
       {% for producto in productos %}
-      <a href="">
+      <a href="{{ url_for('tienda_publica.ver_producto', nombre_tienda=nombre_tienda, producto_id=producto.id) }}">
         <div class="producto-card">
           <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
           <h3>{{ producto.nombre }}</h3>
@@ -34,33 +21,25 @@
     </div>
   </section>
 {% elif config.plantilla == "tienda_2" %}
-  <header class="navbar-tienda2">
-    <div class="navbar-contenedor">
-      <a href="/pages/{{ nombre_tienda}}" class="navbar-logo">
-        {% if config.logo_url %}
-          <img src="{{ config.logo_url }}" alt="Logo" class="logo-img">
-        {% endif %}
-        <span class="nombre-tienda">{{ nombre_tienda }}</span>
-      </a>
-      <nav class="navbar-links">
-        <a href="#">Inicio</a>
-        <a href="#productos">Tienda</a>
-        <a href="#">Contacto</a>
-        <a href="#" class="carrito-icon">🛒</a>
-      </nav>
-    </div>
-  </header>
+
+  {% include 'PaginasTiendas/plantillas/tiendas/components/navbar2.html' %}
 
   <section class="productos-grid" id="productos">
   {% for producto in productos %}
-  <a href="">
     <div class="producto-item">
-      <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
-      <h3>{{ producto.nombre }}</h3>
-      <p class="precio">{{ producto.precio }} €</p>
-      <button class="btn-comprar">Añadir al carrito</button>
+      <a href="{{ url_for('tienda_publica.ver_producto', nombre_tienda=nombre_tienda, producto_id=producto.id) }}">
+        <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+        <h3>{{ producto.nombre }}</h3>
+        <p class="precio">{{ producto.precio }} €</p>
+      </a>
+      <button class="btn-carrito" id="btn-agregar-carrito"
+        data-id="{{ producto.id }}"
+        data-nombre="{{ producto.nombre }}"
+        data-precio="{{ producto.precio }}"
+        data-imagen="{{ producto.imagen_url or '' }}">
+        Añadir al carrito 🛒
+      </button>
     </div>
-  </a>
   {% endfor %}
 </section>
 {% endif %}
@@ -86,6 +65,12 @@
     <a href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda, pagina=pagina_actual+1) }}" class="pagina-siguiente">Siguiente →</a>
   {% endif %}
 </div>
+{% endif %}
+
+{% if config.plantilla == "tienda_1" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/footer1.html' %}
+{% elif config.plantilla == "tienda_2" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/footer2.html' %}
 {% endif %}
 
 {% endblock %}
