@@ -11,7 +11,7 @@ Crea y personaliza tu propia página web en segundos. Ideal para tiendas online,
 
 🔗 Demo en vivo: [https://pagezy.onrender.com](https://pagezy.onrender.com)  
 📺 Video demostración: [YouTube - Pagezy Demo](https://youtube.com/your-demo-link)  
-📄 Memoria del proyecto: [Ver documento PDF](https://yourdomain.com/doc/memoria-pagezy.pdf)
+📄 Memoria del proyecto: [Descargar PDF](./memoria/Memoria_Pagezy.pdf)
 
 ---
 
@@ -88,19 +88,6 @@ pagezy/
 ├── requirements.txt
 └── README.md
 ```
-
----
-
-## 📸 Capturas
-
-### 🛒 Tienda pública
-![Tienda pública](https://mms.businesswire.com/media/20241112181390/en/2301437/22/Render_logo_-_Black.jpg)
-
-### ⚙️ Panel de administración
-![Admin panel](https://yourdomain.com/static/imgs/captura-admin.png)
-
-### 🎨 Personalización
-![Configuración](https://yourdomain.com/static/imgs/captura-configuracion.png)
 
 ---
 
