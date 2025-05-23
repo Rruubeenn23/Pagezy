@@ -1844,7 +1844,7 @@
   border-radius: 8px;
   background-color: #57606f;
   font-weight: 500;
-  cursor: default;
+  cursor: pointer;
 }
 .admin-panel .admin-sidebar ul li.active, .admin-panel .admin-sidebar ul li:hover {
   background-color: #747d8c;
@@ -1930,6 +1930,60 @@
 .admin-panel .admin-contenido form {
   display: inline-block;
   margin: 0;
+}
+@media (max-width: 768px) {
+  .admin-panel {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  .admin-panel .admin-sidebar {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+  }
+  .admin-panel .admin-sidebar ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .admin-panel .admin-sidebar ul li {
+    flex: 1 1 45%;
+    text-align: center;
+    padding: 0.5rem;
+  }
+  .admin-panel .admin-contenido {
+    padding: 1rem;
+  }
+  .admin-panel .admin-contenido table {
+    font-size: 0.85rem;
+  }
+  .admin-panel .admin-contenido table thead {
+    display: none;
+  }
+  .admin-panel .admin-contenido table tbody tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 0.5rem;
+  }
+  .admin-panel .admin-contenido table tbody tr td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border: none;
+    border-bottom: 1px solid #eee;
+  }
+  .admin-panel .admin-contenido table tbody tr td:last-child {
+    border-bottom: none;
+  }
+  .admin-panel .admin-contenido table tbody tr td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 1rem;
+    color: #444;
+  }
 }
 
 .cuenta-container {

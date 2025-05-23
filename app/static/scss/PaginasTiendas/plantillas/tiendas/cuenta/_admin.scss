@@ -28,7 +28,7 @@
         border-radius: 8px;
         background-color: #57606f;
         font-weight: 500;
-        cursor: default;
+        cursor: pointer;
 
         &.active,
         &:hover {
@@ -97,7 +97,8 @@
       font-style: italic;
       color: #555;
     }
-     button {
+
+    button {
       padding: 0.5rem 1.2rem;
       background-color: var(--color-principal);
       color: white;
@@ -136,6 +137,70 @@
     form {
       display: inline-block;
       margin: 0;
+    }
+  }
+
+  // 🔻 RESPONSIVE ADAPTATION 🔻
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 1rem;
+
+    .admin-sidebar {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+
+        li {
+          flex: 1 1 45%;
+          text-align: center;
+          padding: 0.5rem;
+        }
+      }
+    }
+
+    .admin-contenido {
+      padding: 1rem;
+
+      table {
+        font-size: 0.85rem;
+
+        thead {
+          display: none;
+        }
+
+        tbody tr {
+          display: block;
+          margin-bottom: 1rem;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+          padding: 0.5rem;
+
+          td {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border: none;
+            border-bottom: 1px solid #eee;
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            &::before {
+              content: attr(data-label);
+              font-weight: bold;
+              margin-right: 1rem;
+              color: #444;
+            }
+          }
+        }
+      }
     }
   }
 }
