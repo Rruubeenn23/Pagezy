@@ -26,5 +26,9 @@
   {
     "type": "sqlite",
     "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\pagezy\\app\\instance\\tiendas\\a.db"
+  },
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\pagezy\\app\\instance\\tiendas\\GeneLibrary.db"
   }
 ]

@@ -7,7 +7,7 @@ from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.models_tienda import db as db_tienda_modelo
-from app.models_tienda import Producto, Cliente, Administrador, Vendedor, Pedido, Compra, ConfiguracionVisual
+from app.models_tienda import Producto, Cliente, Administrador, Pedido, Compra, ConfiguracionVisual
 
 # Ruta base para las bases de datos de tiendas
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))

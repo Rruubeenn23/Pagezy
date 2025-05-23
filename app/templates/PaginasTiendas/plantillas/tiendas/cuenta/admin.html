@@ -18,11 +18,12 @@
         <li id="btn-pedidos">📁 Pedidos</li>
         <li id="btn-compras">📁 Compras</li>
         <li id="btn-productos">📁 Productos</li>
-        <li id="btn-vendedores">📁 Vendedores</li>
     </ul>
   </div>
 
   <div class="admin-contenido">
+
+  <!-- CLIENTES -->
   <div id="seccion-clientes" class="tabla-seccion">
     <h3>Clientes</h3>
     {% if clientes %}
@@ -32,6 +33,7 @@
             {% for key in clientes[0].keys() %}
             <th>{{ key }}</th>
             {% endfor %}
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -40,6 +42,11 @@
             {% for value in cliente.values() %}
             <td>{{ value }}</td>
             {% endfor %}
+            <td>
+              <form method="POST" action="{{ url_for('tienda_publica.eliminar_cliente', nombre_tienda=nombre_tienda, cliente_id=cliente['id']) }}">
+                <button type="submit" onclick="return confirm('¿Eliminar cliente?')">🗑 Eliminar</button>
+              </form>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
@@ -49,6 +56,7 @@
     {% endif %}
   </div>
 
+  <!-- PEDIDOS -->
   <div id="seccion-pedidos" class="tabla-seccion" style="display: none;">
     <h3>Pedidos</h3>
     {% if pedidos %}
@@ -58,6 +66,8 @@
             {% for key in pedidos[0].keys() %}
             <th>{{ key }}</th>
             {% endfor %}
+            <th>Actualizar estado</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -66,6 +76,21 @@
             {% for value in pedido.values() %}
             <td>{{ value }}</td>
             {% endfor %}
+            <td>
+              <form method="POST" action="{{ url_for('tienda_publica.actualizar_estado_pedido', nombre_tienda=nombre_tienda, pedido_id=pedido['id']) }}">
+                <select name="estado" onchange="this.form.submit()">
+                  <option disabled selected>Cambiar estado</option>
+                  <option value="Pendiente">Pendiente</option>
+                  <option value="Enviado">Enviado</option>
+                  <option value="Entregado">Entregado</option>
+                </select>
+              </form>
+            </td>
+            <td>
+              <form method="POST" action="{{ url_for('tienda_publica.eliminar_pedido', nombre_tienda=nombre_tienda, pedido_id=pedido['id']) }}">
+                <button type="submit" onclick="return confirm('¿Eliminar pedido?')">🗑 Eliminar</button>
+              </form>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
@@ -75,6 +100,7 @@
     {% endif %}
   </div>
 
+  <!-- COMPRAS -->
   <div id="seccion-compras" class="tabla-seccion" style="display: none;">
     <h3>Compras</h3>
     {% if compras %}
@@ -101,6 +127,7 @@
     {% endif %}
   </div>
 
+  <!-- PRODUCTOS -->
   <div id="seccion-productos" class="tabla-seccion" style="display: none;">
     <h3>Productos</h3>
     {% if productos %}
@@ -110,20 +137,26 @@
             {% for key in productos[0].keys() %}
             <th>{{ key }}</th>
             {% endfor %}
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           {% for producto in productos %}
           <tr>
-            {% for value in producto.values() %}
-                <td>
-                    {% if loop.index0 == 4 %}  {# El índice del campo 'imagen_url' si siempre va en esa posición #}
-                    <img src="{{ value }}" alt="Imagen" style="max-height: 60px;">
-                    {% else %}
-                    {{ value }}
-                    {% endif %}
-                </td>
+            {% for key, value in producto.items() %}
+              <td>
+                {% if key == 'imagen_url' %}
+                  <img src="{{ value }}" alt="Imagen" style="max-height: 60px;">
+                {% else %}
+                  {{ value }}
+                {% endif %}
+              </td>
             {% endfor %}
+            <td>
+              <form method="POST" action="{{ url_for('tienda_publica.eliminar_producto', nombre_tienda=nombre_tienda, producto_id=producto['id']) }}">
+                <button type="submit" onclick="return confirm('¿Eliminar producto?')">🗑 Eliminar</button>
+              </form>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
@@ -133,33 +166,7 @@
     {% endif %}
   </div>
 
-  <div id="seccion-vendedores" class="tabla-seccion" style="display: none;">
-    <h3>Vendedores</h3>
-    {% if vendedores %}
-      <table>
-        <thead>
-          <tr>
-            {% for key in vendedores[0].keys() %}
-            <th>{{ key }}</th>
-            {% endfor %}
-          </tr>
-        </thead>
-        <tbody>
-          {% for vendedor in vendedores %}
-          <tr>
-            {% for value in vendedor.values() %}
-            <td>{{ value }}</td>
-            {% endfor %}
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    {% else %}
-      <p>No hay vendedores registrados.</p>
-    {% endif %}
-  </div>
 </section>
-
 
 {% if config.plantilla == "tienda_1" %}
   {% include 'PaginasTiendas/plantillas/tiendas/components/footer1.html' %}
@@ -167,40 +174,33 @@
   {% include 'PaginasTiendas/plantillas/tiendas/components/footer2.html' %}
 {% endif %}
 
+<!-- JS para tabs del panel -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const botones = {
+    const tabs = {
       clientes: document.getElementById("btn-clientes"),
       pedidos: document.getElementById("btn-pedidos"),
       compras: document.getElementById("btn-compras"),
       productos: document.getElementById("btn-productos"),
-      vendedores: document.getElementById("btn-vendedores"),
     };
 
-    const secciones = {
+    const sections = {
       clientes: document.getElementById("seccion-clientes"),
       pedidos: document.getElementById("seccion-pedidos"),
       compras: document.getElementById("seccion-compras"),
       productos: document.getElementById("seccion-productos"),
-      vendedores: document.getElementById("seccion-vendedores"),
     };
 
-    Object.keys(botones).forEach(seccion => {
-      botones[seccion].addEventListener("click", () => {
-        // Oculta todas las secciones
-        Object.values(secciones).forEach(div => div.style.display = "none");
-        Object.values(botones).forEach(btn => btn.classList.remove("active"));
-
-        // Muestra la seleccionada
-        secciones[seccion].style.display = "block";
-        botones[seccion].classList.add("active");
+    Object.keys(tabs).forEach(key => {
+      tabs[key].addEventListener("click", () => {
+        Object.values(sections).forEach(s => s.style.display = "none");
+        sections[key].style.display = "block";
       });
     });
 
-    // Mostrar por defecto "clientes"
-    botones["clientes"].click();
+    // Mostrar sección clientes por defecto
+    tabs.clientes.click();
   });
 </script>
-
 
 {% endblock %}

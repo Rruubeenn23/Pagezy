@@ -62,11 +62,12 @@ def ver_tienda(nombre_tienda):
                             
 
 
+from flask import request
+
 @tienda_bp.route("/<nombre_tienda>/productos")
 @tienda_bp.route("/<nombre_tienda>/productos/<int:pagina>")
 def ver_productos(nombre_tienda, pagina=1):
     tienda_publica = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
-
     engine = create_engine(f"sqlite:///{tienda_publica.ruta_db}")
     metadata = MetaData()
     metadata.reflect(bind=engine)
@@ -91,9 +92,32 @@ def ver_productos(nombre_tienda, pagina=1):
         productos_result = connection.execute(producto_table.select()).mappings().fetchall()
         todos_los_productos = [dict(row) for row in productos_result]
 
-    # PAGINACIÓN
+    # === FILTRADO Y BÚSQUEDA ===
+    query = request.args.get("q", "").lower()
+    categoria = request.args.get("categoria")
+    ordenar = request.args.get("ordenar")
+
+    productos_filtrados = []
+    for producto in todos_los_productos:
+        if query and query not in producto["nombre"].lower():
+            continue
+        if categoria and producto.get("categoria") != categoria:
+            continue
+        productos_filtrados.append(producto)
+
+    # === ORDENAMIENTO (antes de paginar) ===
+    if ordenar == "nombre_asc":
+        productos_filtrados.sort(key=lambda p: p["nombre"].lower())
+    elif ordenar == "nombre_desc":
+        productos_filtrados.sort(key=lambda p: p["nombre"].lower(), reverse=True)
+    elif ordenar == "precio_asc":
+        productos_filtrados.sort(key=lambda p: p.get("precio", 0))
+    elif ordenar == "precio_desc":
+        productos_filtrados.sort(key=lambda p: p.get("precio", 0), reverse=True)
+
+    # === PAGINACIÓN ===
     productos_por_pagina = 16
-    total_productos = len(todos_los_productos)
+    total_productos = len(productos_filtrados)
     total_paginas = (total_productos + productos_por_pagina - 1) // productos_por_pagina
 
     if pagina < 1 or pagina > total_paginas:
@@ -101,17 +125,34 @@ def ver_productos(nombre_tienda, pagina=1):
 
     inicio = (pagina - 1) * productos_por_pagina
     fin = inicio + productos_por_pagina
-    productos = todos_los_productos[inicio:fin]
+    productos = productos_filtrados[inicio:fin]
+    categorias_disponibles = sorted({p.get("categoria") for p in todos_los_productos if p.get("categoria")})
+
 
     plantilla_base = f"PaginasTiendas/plantillas/tiendas/{configuracion['plantilla']}.html"
 
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return render_template(
+            "PaginasTiendas/plantillas/tiendas/components/_productos_fragment.html",  # <-- este fragmento SOLO productos
+            config=configuracion,
+            productos=productos,
+            nombre_tienda=tienda_publica.nombre_tienda,
+            ordenar=ordenar
+        )
+
+    # Si es petición normal (recarga), devolvemos TODO
     return render_template("PaginasTiendas/plantillas/tiendas/plp.html",
                            config=configuracion,
                            productos=productos,
                            nombre_tienda=tienda_publica.nombre_tienda,
                            plantilla_base=plantilla_base,
                            pagina_actual=pagina,
-                           total_paginas=total_paginas)
+                           total_paginas=total_paginas,
+                           query=query,
+                           categoria=categoria,
+                           ordenar=ordenar,
+                           categorias_disponibles=categorias_disponibles)
+
 
 
 @tienda_bp.route("/<nombre_tienda>/info")
@@ -197,8 +238,10 @@ def guardar_pedido(nombre_tienda):
     if not email:
         return jsonify({"error": "Usuario no autenticado"}), 401
 
-    tienda = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
+    telefono = data.get("telefono", "").strip()
+    direccion = data.get("direccion", "").strip()
 
+    tienda = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
     engine = create_engine(f"sqlite:///{tienda.ruta_db}")
     metadata = MetaData()
     metadata.reflect(bind=engine)
@@ -206,10 +249,10 @@ def guardar_pedido(nombre_tienda):
     cliente_table = metadata.tables["cliente"]
     pedido_table = metadata.tables["pedido"]
     compra_table = metadata.tables["compra"]
+    producto_table = metadata.tables["producto"]  # Asegúrate de tener esto
 
     try:
         with engine.begin() as conn:
-            # Obtener cliente desde sesión
             cliente = conn.execute(
                 cliente_table.select().where(cliente_table.c.email == email)
             ).mappings().fetchone()
@@ -219,7 +262,19 @@ def guardar_pedido(nombre_tienda):
 
             cliente_id = cliente["id"]
 
-            # Insertar pedido
+            actualizaciones = {}
+            if not cliente["telefono"] and telefono:
+                actualizaciones["telefono"] = telefono
+            if not cliente["direccion"] and direccion:
+                actualizaciones["direccion"] = direccion
+
+            if actualizaciones:
+                conn.execute(
+                    cliente_table.update()
+                    .where(cliente_table.c.id == cliente_id)
+                    .values(**actualizaciones)
+                )
+
             total = sum(p["precio"] * p["cantidad"] for p in data["carrito"])
             pedido_result = conn.execute(
                 pedido_table.insert().values(
@@ -230,14 +285,24 @@ def guardar_pedido(nombre_tienda):
             )
             pedido_id = pedido_result.inserted_primary_key[0]
 
-            # Insertar productos comprados
             for p in data["carrito"]:
+                producto_id = int(p["id"])
+                cantidad_comprada = int(p["cantidad"])
+
+                # Insertar en la tabla compra
                 conn.execute(
                     compra_table.insert().values(
                         pedido_id=pedido_id,
-                        producto_id=int(p["id"]),
-                        cantidad=int(p["cantidad"])
+                        producto_id=producto_id,
+                        cantidad=cantidad_comprada
                     )
+                )
+
+                # Descontar stock del producto
+                conn.execute(
+                    producto_table.update()
+                    .where(producto_table.c.id == producto_id)
+                    .values(stock=producto_table.c.stock - cantidad_comprada)
                 )
 
     except Exception as e:
@@ -414,7 +479,6 @@ def admin_panel(nombre_tienda):
     pedido_table = metadata.tables["pedido"]
     compra_table = metadata.tables["compra"]
     producto_table = metadata.tables["producto"]
-    vendedor_table = metadata.tables.get("vendedor")  # opcional
 
     with engine.connect() as conn:
         config_data = conn.execute(config_table.select()).mappings().fetchone()
@@ -430,10 +494,7 @@ def admin_panel(nombre_tienda):
         pedidos = conn.execute(pedido_table.select()).mappings().fetchall()
         compras = conn.execute(compra_table.select()).mappings().fetchall()
         productos = conn.execute(producto_table.select()).mappings().fetchall()
-        vendedores = []
-        if vendedor_table is not None:
-            stmt = vendedor_table.select()
-            vendedores = conn.execute(stmt).mappings().fetchall()
+
 
     return render_template("PaginasTiendas/plantillas/tiendas/cuenta/admin.html",
                            nombre_tienda=nombre_tienda,
@@ -441,8 +502,106 @@ def admin_panel(nombre_tienda):
                            clientes=clientes,
                            pedidos=pedidos,
                            compras=compras,
-                           productos=productos,
-                           vendedores=vendedores)
+                           productos=productos)
+
+
+# Eliminar producto
+@tienda_bp.route("/<nombre_tienda>/admin/eliminar_producto/<int:producto_id>", methods=["POST"])
+def eliminar_producto(nombre_tienda, producto_id):
+    if "admin_email" not in session:
+        flash("Acceso denegado", "error")
+        return redirect(url_for("tienda_publica.login", nombre_tienda=nombre_tienda))
+
+    tienda = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
+    engine = create_engine(f"sqlite:///{tienda.ruta_db}")
+    metadata = MetaData()
+    metadata.reflect(bind=engine)
+    producto_table = metadata.tables["producto"]
+
+    with engine.begin() as conn:
+        result = conn.execute(producto_table.delete().where(producto_table.c.id == producto_id))
+        if result.rowcount == 0:
+            flash("Producto no encontrado", "warning")
+        else:
+            flash("Producto eliminado con éxito", "success")
+
+    return redirect(url_for("tienda_publica.admin_panel", nombre_tienda=nombre_tienda))
+    return jsonify({"success": True})
+
+# Eliminar pedido
+@tienda_bp.route("/<nombre_tienda>/admin/eliminar_pedido/<int:pedido_id>", methods=["POST"])
+def eliminar_pedido(nombre_tienda, pedido_id):
+    if "admin_email" not in session:
+        flash("Acceso denegado", "error")
+        return redirect(url_for("tienda_publica.login", nombre_tienda=nombre_tienda))
+
+    tienda = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
+    engine = create_engine(f"sqlite:///{tienda.ruta_db}")
+    metadata = MetaData()
+    metadata.reflect(bind=engine)
+    pedido_table = metadata.tables["pedido"]
+
+    with engine.begin() as conn:
+        result = conn.execute(pedido_table.delete().where(pedido_table.c.id == pedido_id))
+        if result.rowcount == 0:
+            flash("Pedido no encontrado", "warning")
+        else:
+            flash("Pedido eliminado con éxito", "success")
+
+    return redirect(url_for("tienda_publica.admin_panel", nombre_tienda=nombre_tienda))
+
+
+# Actualizar estado del pedido
+@tienda_bp.route("/<nombre_tienda>/admin/actualizar_estado_pedido/<int:pedido_id>", methods=["POST"])
+def actualizar_estado_pedido(nombre_tienda, pedido_id):
+    if "admin_email" not in session:
+        flash("Acceso denegado", "error")
+        return redirect(url_for("tienda_publica.login", nombre_tienda=nombre_tienda))
+
+    nuevo_estado = request.form.get("estado")
+
+    tienda = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
+    engine = create_engine(f"sqlite:///{tienda.ruta_db}")
+    metadata = MetaData()
+    metadata.reflect(bind=engine)
+    pedido_table = metadata.tables["pedido"]
+
+    with engine.begin() as conn:
+        result = conn.execute(
+            pedido_table.update()
+            .where(pedido_table.c.id == pedido_id)
+            .values(estado=nuevo_estado)
+        )
+        if result.rowcount == 0:
+            flash("Pedido no encontrado", "warning")
+        else:
+            flash("Estado del pedido actualizado", "success")
+
+    return redirect(url_for("tienda_publica.admin_panel", nombre_tienda=nombre_tienda))
+
+
+# Eliminar cliente
+@tienda_bp.route("/<nombre_tienda>/admin/eliminar_cliente/<int:cliente_id>", methods=["POST"])
+def eliminar_cliente(nombre_tienda, cliente_id):
+    if "admin_email" not in session:
+        flash("Acceso denegado", "error")
+        return redirect(url_for("tienda_publica.login", nombre_tienda=nombre_tienda))
+
+    tienda = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
+    engine = create_engine(f"sqlite:///{tienda.ruta_db}")
+    metadata = MetaData()
+    metadata.reflect(bind=engine)
+    cliente_table = metadata.tables["cliente"]
+
+    with engine.begin() as conn:
+        result = conn.execute(cliente_table.delete().where(cliente_table.c.id == cliente_id))
+        if result.rowcount == 0:
+            flash("Cliente no encontrado", "warning")
+        else:
+            flash("Cliente eliminado con éxito", "success")
+
+    return redirect(url_for("tienda_publica.admin_panel", nombre_tienda=nombre_tienda))
+
 
 @tienda_bp.route("/<nombre_tienda>/cuenta")
 def cuenta(nombre_tienda):

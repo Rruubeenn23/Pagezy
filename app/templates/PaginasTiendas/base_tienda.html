@@ -62,6 +62,15 @@
       <!-- Aquí se inyectarán los productos -->
     </div>
 
+     <div class="cliente-extra-info">
+      <label>Teléfono:
+        <input type="text" id="cliente-telefono" placeholder="Tu número de contacto">
+      </label>
+      <label>Dirección:
+        <input type="text" id="cliente-direccion" placeholder="Dirección de entrega">
+      </label>
+    </div>
+
     <div class="modal-footer">
       <div class="pago-opciones">
         <p><strong>Método de pago:</strong></p>
@@ -227,8 +236,15 @@
         return;
       }
 
-      const data = { carrito, metodo_pago: metodo }; // Los datos del cliente vienen del backend
+      const telefono = document.getElementById("cliente-telefono")?.value.trim();
+      const direccion = document.getElementById("cliente-direccion")?.value.trim();
 
+      const data = {
+        carrito,
+        metodo_pago: metodo,
+        telefono,
+        direccion
+      };
 
       try {
         const url = window.location.pathname.split("/")[2];  // Asume `/pages/<nombre_tienda>/...`

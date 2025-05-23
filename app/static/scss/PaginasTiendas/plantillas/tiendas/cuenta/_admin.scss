@@ -97,5 +97,45 @@
       font-style: italic;
       color: #555;
     }
+     button {
+      padding: 0.5rem 1.2rem;
+      background-color: var(--color-principal);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background-color: var(--color-secundario);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+
+    select {
+      padding: 0.45rem 1rem;
+      font-size: 0.95rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: white;
+      transition: border-color 0.2s ease;
+
+      &:focus {
+        border-color: var(--color-principal);
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+      }
+    }
+
+    form {
+      display: inline-block;
+      margin: 0;
+    }
   }
 }

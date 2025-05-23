@@ -1,34 +1,33 @@
-<header class="navbar-tienda2">
-  <div class="navbar-contenedor">
-    <a href="/pages/{{ nombre_tienda }}" class="navbar-logo">
+<header class="tienda2-header">
+  <div class="tienda2-navbar">
+    <a href="/pages/{{ nombre_tienda }}" class="tienda2-logo">
       {% if config.logo_url %}
-        <img src="{{ config.logo_url }}" alt="Logo" class="logo-img">
+        <img src="{{ config.logo_url }}" alt="Logo">
+      {% else %}
+        <span class="logo-placeholder">LOGO</span>
       {% endif %}
-      <span class="nombre-tienda">{{ nombre_tienda }}</span>
+      <span class="logo-text">{{ nombre_tienda }}</span>
     </a>
-    <nav class="navbar-links">
-      <a href="/pages/{{ nombre_tienda }}">Inicio</a>
-      <a href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda) }}">Tienda</a>
+    <nav class="tienda2-links">
+      <a class="btn-contacto" href="/pages/{{ nombre_tienda }}">Inicio</a>
+      <a class="btn-contacto" href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda) }}">Tienda</a>
       {% if session.get("cliente_nombre") %}
         <div class="dropdown">
-          <button class="dropdown-toggle">
-            👤 {{ session.get("cliente_nombre") }}
-          </button>
+          <button class="dropdown-toggle btn-contacto">👤<br>{{ session.get("cliente_nombre") }}</button>
           <div class="dropdown-menu">
             <a href="{{ url_for('tienda_publica.cuenta', nombre_tienda=nombre_tienda) }}">Cuenta</a>
             <a href="{{ url_for('tienda_publica.logout', nombre_tienda=nombre_tienda) }}">Cerrar sesión</a>
           </div>
         </div>
       {% else %}
-        <a href="{{ url_for('tienda_publica.login', nombre_tienda=nombre_tienda) }}">
-          Iniciar sesión
-        </a>
+        <a class="btn-contacto" href="{{ url_for('tienda_publica.login', nombre_tienda=nombre_tienda) }}">Iniciar sesión</a>
       {% endif %}
-
       <a href="#" class="carrito-icon">🛒</a>
     </nav>
   </div>
 </header>
+
+
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {

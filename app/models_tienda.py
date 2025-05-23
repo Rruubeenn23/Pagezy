@@ -38,12 +38,6 @@ class Administrador(db.Model):
     contraseña = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(120), unique=True)
 
-class Vendedor(db.Model):
-    __tablename__ = "vendedor"  
-    id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(100), nullable=False)
-    usuario = db.Column(db.String(50), unique=True, nullable=False)
-    contraseña = db.Column(db.String(255), nullable=False)
 
 class Pedido(db.Model):
     __tablename__ = "pedido" 
