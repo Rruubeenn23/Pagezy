@@ -11,7 +11,7 @@ Crea y personaliza tu propia página web en segundos. Ideal para tiendas online,
 
 🔗 Demo en vivo: [https://pagezy.onrender.com](https://pagezy.onrender.com)  
 📺 Video demostración: [YouTube - Pagezy Demo](https://youtube.com/your-demo-link)  
-📄 Memoria del proyecto: [Descargar PDF](./memoria/Memoria_Pagezy.pdf)
+📄 Memoria del proyecto: [Descargar PDF](./Memoria_TFG_RubénCereceda.pdf)
 
 ---
 
