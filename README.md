@@ -94,7 +94,7 @@ pagezy/
 ## 📸 Capturas
 
 ### 🛒 Tienda pública
-![Tienda pública](https://yourdomain.com/static/imgs/captura-tienda.png)
+![Tienda pública](https://mms.businesswire.com/media/20241112181390/en/2301437/22/Render_logo_-_Black.jpg)
 
 ### ⚙️ Panel de administración
 ![Admin panel](https://yourdomain.com/static/imgs/captura-admin.png)
