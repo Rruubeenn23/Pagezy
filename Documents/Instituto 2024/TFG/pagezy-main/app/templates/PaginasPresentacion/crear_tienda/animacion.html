@@ -1,0 +1,51 @@
+{% extends 'PaginasPresentacion/base.html' %}
+
+{% block title %}Creando tu tienda... | PAGEZY{% endblock %}
+
+{% block content %}
+<section class="pantalla-cargando">
+  <div class="contenedor-animacion">
+    <div class="spinner-wrapper">
+      <svg class="svg-circulo" viewBox="0 0 120 120">
+        <circle class="fondo-circulo" cx="60" cy="60" r="50" />
+        <circle class="animado-circulo" cx="60" cy="60" r="50" id="circle-loader" />
+      </svg>
+      <div class="check" id="check">✔</div>
+    </div>
+    <div class="mensajes">
+      <p id="mensaje-carga">Estamos generando tu tienda...</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const mensajes = [
+    "Estamos generando tu tienda...",
+    "Cargando estilos y productos...",
+    "Finalizando configuraciones..."
+  ];
+  const mensajeElemento = document.getElementById("mensaje-carga");
+  const check = document.getElementById("check");
+  const loader = document.getElementById("circle-loader");
+
+  let i = 0;
+
+  const interval = setInterval(() => {
+    i++;
+    if (i < mensajes.length) {
+      mensajeElemento.textContent = mensajes[i];
+    }
+  }, 3000);
+
+  setTimeout(() => {
+    clearInterval(interval);
+    mensajeElemento.textContent = "¡Todo listo! Redirigiendo...";
+    loader.classList.add("finalizado");
+    check.classList.add("mostrar");
+
+    setTimeout(() => {
+      window.location.href = "{{ url_for('tiendas.lista_tiendas') }}";
+    }, 1500);
+  }, 10000);
+</script>
+{% endblock %}

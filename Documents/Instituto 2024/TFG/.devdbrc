@@ -14,5 +14,9 @@
   {
     "type": "sqlite",
     "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\vapecommerce\\app\\instance\\tiendas\\Tienda.db"
+  },
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\vapecommerce\\app\\instance\\tiendas\\Tienda de Papa.db"
   }
 ]

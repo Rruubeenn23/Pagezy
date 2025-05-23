@@ -1,0 +1,110 @@
+.pdp {
+  padding: 10rem 2rem;
+  background-color: #fafafa;
+
+  .pdp-contenido {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .pdp-imagen {
+    flex: 1 1 300px;
+    text-align: center;
+
+    img {
+      max-width: 100%;
+      max-height: 350px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: white;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .imagen-placeholder {
+      background-color: #eee;
+      width: 100%;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      color: #999;
+    }
+  }
+
+  .pdp-detalles {
+    flex: 1 1 350px;
+
+    h1 {
+      font-size: 2rem;
+      color: var(--color-secundario);
+      margin-bottom: 1rem;
+    }
+
+    .pdp-precio {
+      font-size: 1.5rem;
+      color: var(--color-principal);
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .pdp-descripcion {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    .btn-carrito {
+        background-color: var(--color-principal);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+        font-size: 1rem;
+
+        &:hover {
+            background-color: var(--color-secundario);
+        }
+    }
+  }
+}
+
+.pdp-descripcion-general {
+  background-color: #f6f6f6;
+  padding: 3rem 2rem;
+
+  .descripcion-contenido {
+    max-width: 1000px;
+    margin: 0 auto;
+    color: #333;
+
+    h2 {
+      font-size: 1.6rem;
+      color: var(--color-secundario);
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+
+      a {
+        color: var(--color-principal);
+        text-decoration: underline;
+
+        &:hover {
+          color: var(--color-secundario);
+        }
+      }
+    }
+  }
+}

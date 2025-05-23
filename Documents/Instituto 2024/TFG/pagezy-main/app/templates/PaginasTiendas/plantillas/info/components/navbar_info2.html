@@ -1,0 +1,14 @@
+  <div class="info2-navbar">
+    <a href="/pages/{{ nombre_tienda }}" class="info2-logo">
+      {% if config.logo_url %}
+        <img src="{{ config.logo_url }}" alt="Logo">
+      {% else %}
+        <span>LOGO</span>
+      {% endif %}
+    </a>
+    <nav class="info2-links">
+      <a href="/pages/{{ nombre_tienda }}">Inicio</a>
+      <a href="{{ url_for('tienda_publica.ver_info', nombre_tienda=nombre_tienda) }}">Servicios</a>
+      <a href="{{ url_for('tienda_publica.ver_info', nombre_tienda=nombre_tienda) }}" class="btn-contacto">Contáctanos</a>
+    </nav>
+  </div>

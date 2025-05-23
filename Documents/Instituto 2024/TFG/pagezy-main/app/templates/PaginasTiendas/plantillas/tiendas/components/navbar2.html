@@ -1,0 +1,53 @@
+<header class="tienda2-header">
+  <div class="tienda2-navbar">
+    <a href="/pages/{{ nombre_tienda }}" class="tienda2-logo">
+      {% if config.logo_url %}
+        <img src="{{ config.logo_url }}" alt="Logo">
+      {% else %}
+        <span class="logo-placeholder">LOGO</span>
+      {% endif %}
+      <span class="logo-text">{{ nombre_tienda }}</span>
+    </a>
+
+    <button class="tienda2-toggle" id="tienda2-toggle">☰</button>
+
+    <nav class="tienda2-links" id="tienda2-menu">
+      <a class="btn-contacto" href="/pages/{{ nombre_tienda }}">Inicio</a>
+      <a class="btn-contacto" href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda) }}">Tienda</a>
+      {% if session.get("cliente_nombre") %}
+        <div class="dropdown">
+          <button class="dropdown-toggle btn-contacto">👤<br>{{ session.get("cliente_nombre") }}</button>
+          <div class="dropdown-menu">
+            <a href="{{ url_for('tienda_publica.cuenta', nombre_tienda=nombre_tienda) }}">Cuenta</a>
+            <a href="{{ url_for('tienda_publica.logout', nombre_tienda=nombre_tienda) }}">Cerrar sesión</a>
+          </div>
+        </div>
+      {% else %}
+        <a class="btn-contacto" href="{{ url_for('tienda_publica.login', nombre_tienda=nombre_tienda) }}">Iniciar sesión</a>
+      {% endif %}
+      <a href="#" class="carrito-icon">🛒</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('tienda2-toggle');
+    const menu = document.getElementById('tienda2-menu');
+    const dropdown = document.querySelector('.dropdown-toggle');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+
+    toggle?.addEventListener('click', () => {
+      menu.classList.toggle('open');
+    });
+
+    dropdown?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdownMenu.style.display = (dropdownMenu.style.display === 'block') ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', () => {
+      dropdownMenu.style.display = 'none';
+    });
+  });
+</script>
