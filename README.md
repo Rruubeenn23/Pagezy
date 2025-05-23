@@ -1,21 +1,16 @@
-<h1 align="center">🚀 Pagezy</h1>
 
-<p align="center">
-  Crea y personaliza tu propia página web en segundos. Ideal para tiendas online, portfolios, periódicos digitales y más.
-</p>
+# 🚀 Pagezy
 
-<p align="center">
-  <img href="https://pagezy.onrender.com/static/imgs/logo1.png" alt="Pagezy Banner" width="80%">
-</p>
+Crea y personaliza tu propia página web en segundos. Ideal para tiendas online, portfolios, periódicos digitales y más.
+
+![Pagezy Banner](https://yourdomain.com/static/imgs/banner-pagezy.png)
 
 ---
 
 ## 🌐 Acceso público
 
-🔗 Demo en vivo: [https://pagezy.onrender.com](https://pagezy.onrender.com)
-
-📺 Video demostración: [YouTube - Pagezy Demo](https://youtube.com/your-demo-link)
-
+🔗 Demo en vivo: [https://pagezy.onrender.com](https://pagezy.onrender.com)  
+📺 Video demostración: [YouTube - Pagezy Demo](https://youtube.com/your-demo-link)  
 📄 Memoria del proyecto: [Ver documento PDF](https://yourdomain.com/doc/memoria-pagezy.pdf)
 
 ---
@@ -56,10 +51,11 @@ cd pagezy
 ```
 
 ### 2. Crea y activa un entorno virtual
+
 ```bash
 python -m venv venv
 source venv/bin/activate    # Linux/Mac
-venv\Scripts\activate       # Windows
+venv\Scripts\activate     # Windows
 ```
 
 ### 3. Instala las dependencias
@@ -68,15 +64,19 @@ venv\Scripts\activate       # Windows
 pip install -r requirements.txt
 ```
 
-4. Ejecuta la aplicación
+### 4. Ejecuta la aplicación
+
 ```bash
 python run.py
 ```
 
-La aplicación se ejecutará en http://127.0.0.1:5000
+La aplicación se ejecutará en `http://127.0.0.1:5000`
+
+---
 
 ## 📦 Estructura del proyecto
-```arduino
+
+```
 pagezy/
 ├── app/
 │   ├── templates/
@@ -89,15 +89,21 @@ pagezy/
 └── README.md
 ```
 
-📌 Créditos
-Proyecto desarrollado como Trabajo de Fin de Grado (TFG) para el curso Desarrollo de Aplicaciones Multiplataforma 2025 por Rubén.
+---
+
+## 📸 Capturas
+
+### 🛒 Tienda pública
+![Tienda pública](https://yourdomain.com/static/imgs/captura-tienda.png)
+
+### ⚙️ Panel de administración
+![Admin panel](https://yourdomain.com/static/imgs/captura-admin.png)
+
+### 🎨 Personalización
+![Configuración](https://yourdomain.com/static/imgs/captura-configuracion.png)
 
 ---
-https://imgur.com/a/3SOmfZ6
 
-### 🔧 Próximos pasos para ti:
+## 📌 Créditos
 
-- 🔼 **Sube las imágenes a un dominio o a Imgur** y reemplaza las URLs de `https://yourdomain.com/...`
-- 📽️ **Graba o sube tu video a YouTube**
-- 📄 **Sube la memoria final como PDF y vincúlala**
-
+Proyecto desarrollado como Trabajo de Fin de Grado (TFG) para el curso 2024 por **Rubén**.
