@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="https://imgur.com/a/3SOmfZ6" alt="Pagezy Banner" width="80%">
+  <img href="https://imgur.com/a/3SOmfZ6" alt="Pagezy Banner" width="80%">
 </p>
 
 ---
