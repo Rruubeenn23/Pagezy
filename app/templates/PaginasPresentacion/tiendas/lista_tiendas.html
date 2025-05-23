@@ -1,0 +1,18 @@
+{% extends 'PaginasPresentacion/base.html' %}
+
+{% block content %}
+<h2>Tiendas creadas</h2>
+<div class="grid-tarjetas">
+  {% for tienda in tiendas %}
+  <a href="{{ url_for('tienda_publica.ver_tienda', nombre_tienda=tienda.nombre_tienda) }}" class="tienda">
+    <div class="tarjeta-tienda">
+      <div class="logo-tienda">
+        <img src="/static/logos/{{ tienda.nombre_tienda }}_logo.png" alt="Logo de {{ tienda.nombre_tienda }}">
+      </div>
+      <h3>{{ tienda.nombre_tienda }}</h3>
+    </div>
+  </a>
+  {% endfor %}
+  
+</div>
+{% endblock %}

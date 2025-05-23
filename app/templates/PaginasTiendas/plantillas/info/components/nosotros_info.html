@@ -1,0 +1,15 @@
+<section class="info2-nosotros" id="acerca">
+  <div class="contenedor-nosotros">
+    <div class="texto-nosotros">
+      <h2>Sobre nosotros</h2>
+      <p>{{ config.sobre_nosotros or 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.' }}</p>
+    </div>
+    <div class="imagen-nosotros">
+      {% if config.imagen_portfolio %}
+        <img src="{{ config.imagen_portfolio }}" alt="Imagen sobre nosotros">
+      {% else %}
+        <div class="placeholder-imagen">Imagen</div>
+      {% endif %}
+    </div>
+  </div>
+</section>

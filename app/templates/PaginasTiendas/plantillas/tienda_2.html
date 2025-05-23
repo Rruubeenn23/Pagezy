@@ -1,0 +1,40 @@
+{% extends 'PaginasTiendas/base_tienda.html' %}
+
+{% block title %}{{ nombre_tienda }} | Bienvenido{% endblock %}
+
+{% block content %}
+
+{% include 'PaginasTiendas/plantillas/tiendas/components/navbar2.html' %}
+
+
+<section class="hero-tienda2">
+  <div class="hero-contenido">
+    <h1>Bienvenido a {{ nombre_tienda }}</h1>
+    <p>{{ config.titulo_tienda }}</p>
+    <a href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda) }}" class="btn-explorar">Explorar productos</a>
+  </div>
+</section>
+
+<section class="productos-grid" id="productos">
+  {% for producto in productos[:8] %}
+  <div class="producto-item">
+    <a href="{{ url_for('tienda_publica.ver_producto', nombre_tienda=nombre_tienda, producto_id=producto.id) }}">
+      <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+      <h3>{{ producto.nombre }}</h3>
+      <p class="precio">{{ producto.precio }} €</p>
+    </a>
+    <button class="btn-carrito" id="btn-agregar-carrito"
+      data-id="{{ producto.id }}"
+      data-nombre="{{ producto.nombre }}"
+      data-precio="{{ producto.precio }}"
+      data-imagen="{{ producto.imagen_url or '' }}">
+      Añadir al carrito 🛒
+    </button>
+  </div>
+
+  {% endfor %}
+</section>
+
+{% include 'PaginasTiendas/plantillas/tiendas/components/footer2.html' %}
+
+{% endblock %}

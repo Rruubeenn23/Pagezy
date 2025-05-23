@@ -1,0 +1,85 @@
+.navbar-tienda {
+  background-color: var(--color-principal);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  padding: 1rem 0;
+  margin: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  .contenedor-navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .logo-navbar {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 0.5rem;
+
+    .logo-img {
+      height: 80px;
+      margin-right: 0.5rem;
+      object-fit: contain;
+    }
+
+    .nombre_tienda {
+      font-weight: bold;
+      font-size: 1.3rem;
+      color: white;
+    }
+  }
+
+  .menu-icon {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--color-secundario);
+
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
+
+  .menu-toggle {
+    display: none;
+
+    &:checked ~ .menu-navbar {
+      display: flex;
+    }
+  }
+
+  .menu-navbar {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+
+    li a {
+      text-decoration: none;
+      color: var(--color-secundario);
+      font-weight: 500;
+      transition: color 0.3s;
+
+      &:hover {
+        color: var(--color-secundario);
+      }
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      width: 100%;
+      display: none;
+
+      &.active {
+        display: flex;
+      }
+    }
+  }
+}

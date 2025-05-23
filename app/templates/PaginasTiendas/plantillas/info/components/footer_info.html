@@ -1,0 +1,23 @@
+<footer class="footer-info">
+  <div class="footer-contenido">
+    <div class="footer-columna">
+      <p><strong>&copy; {{ nombre_tienda }} {{ current_year or "2025" }}</strong></p>
+      <p>Todos los derechos reservados.</p>
+    </div>
+
+    <div class="footer-columna">
+      {% if telefono %}
+        <p><strong>Teléfono:</strong> {{ telefono }}</p>
+      {% endif %}
+      {% if email %}
+        <p><strong>Email:</strong> <a href="mailto:{{ email }}">{{ email }}</a></p>
+      {% endif %}
+    </div>
+
+    <div class="footer-columna enlaces-footer">
+      <a href="#">Política de privacidad</a>
+      <a href="#">Aviso legal</a>
+      <a href="#">Ayuda</a>
+    </div>
+  </div>
+</footer>

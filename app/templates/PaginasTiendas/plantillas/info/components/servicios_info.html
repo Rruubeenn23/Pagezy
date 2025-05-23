@@ -1,0 +1,22 @@
+<section class="info-servicios" id="servicios">
+  <h2>Nuestros servicios</h2>
+  <div class="servicios-grid">
+    {% if config.servicios_portfolio %}
+      {% for servicio in config.servicios_portfolio.split(',') %}
+        <div class="servicio-card">
+          <div class="servicio-icon"></div>
+          <h3>{{ servicio.strip() }}</h3>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="servicio-card">
+        <div class="servicio-icon"></div>
+        <h3>Servicio 1</h3>
+      </div>
+      <div class="servicio-card">
+        <div class="servicio-icon"></div>
+        <h3>Servicio 2</h3>
+      </div>
+    {% endif %}
+  </div>
+</section>

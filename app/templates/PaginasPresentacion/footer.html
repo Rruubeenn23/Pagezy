@@ -1,0 +1,33 @@
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="{{ url_for('static', filename='imgs/pagezy1.png') }}" alt="PAGEZY Logo">
+        <p>La plataforma para crear webs de forma sencilla.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Enlaces</h4>
+        <ul>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="{{ url_for('tiendas.lista_tiendas') }}">Nuestras Páginas</a></li>
+          <li><a href="{{ url_for('crear_tienda.paso1') }}">Crea tu Página</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contacto">
+        <h4>Contacto</h4>
+        <p>Email: soporte@pagezy.com</p>
+        <p>Tel: +34 600 123 456</p>
+        <div class="social">
+          <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+          <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-copy">
+      <p>&copy; 2025 PAGEZY. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>

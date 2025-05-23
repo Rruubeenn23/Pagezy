@@ -1,0 +1,241 @@
+.como-funciona {
+  background-color: #f4f4f4;
+  padding: 4rem 2rem;
+  text-align: center;
+
+  h2 {
+    font-size: 2.2rem;
+    color: #1a237e;
+  }
+
+  .pasos {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+
+    .paso {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 280px;
+
+      h3 {
+        color: #303f9f;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        color: #444;
+      }
+    }
+  }
+}
+
+.cta-final {
+  background-color: #1a237e;
+  color: white;
+  text-align: center;
+  padding: 4rem 2rem;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+
+  h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .btn-cta {
+    background-color: #fff;
+    color: #1a237e;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #ddd;
+    }
+  }
+}
+
+.hero-carousel {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  overflow: hidden;
+
+  .carousel {
+    position: relative;
+    height: 100%;
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transform: scale(1.02);
+      transition: opacity 1s ease, transform 1s ease;
+      z-index: 0;
+
+      &.active {
+        opacity: 1;
+        transform: scale(1);
+        z-index: 1;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.5);
+      }
+
+      .overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #fff;
+        z-index: 2;
+        transition: opacity 1s ease, transform 1s ease;
+
+        h1 {
+          font-size: 2.5rem;
+        }
+
+        p {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+
+  .carousel-indicators {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    gap: 0.8rem;
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      cursor: pointer;
+
+      &.active {
+        background-color: #fff;
+        transform: scale(1.4);
+      }
+    }
+  }
+}
+
+.planes {
+  background-color: #ffffff;
+  padding: 4rem 2rem;
+  text-align: center;
+
+  h2 {
+    color: #1a237e;
+    font-size: 2.2rem;
+  }
+
+  .planes-grid {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+
+    .plan {
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 2rem;
+      width: 300px;
+
+      &.destacado {
+        background-color: #1a237e;
+        color: white;
+        border-color: #1a237e;
+
+        .precio {
+          color: #fff;
+        }
+
+        li {
+          color: #ddd;
+        }
+      }
+
+      h3 {
+        color: inherit;
+      }
+
+      .precio {
+        font-size: 1.5rem;
+        color: #303f9f;
+        margin: 1rem 0;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+    }
+  }
+}
+
+.testimonios {
+  background-color: #f4f4f4;
+  padding: 4rem 2rem;
+  text-align: center;
+
+  h2 {
+    font-size: 2rem;
+    color: #1a237e;
+  }
+
+  .testimonios-grid {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+
+    blockquote {
+      background-color: white;
+      border-left: 4px solid #303f9f;
+      padding: 1.5rem;
+      border-radius: 10px;
+      width: 280px;
+      font-style: italic;
+      color: #444;
+
+      cite {
+        display: block;
+        margin-top: 1rem;
+        font-style: normal;
+        color: #1a237e;
+        font-weight: bold;
+      }
+    }
+  }
+}
