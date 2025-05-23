@@ -3,7 +3,7 @@
 
 Crea y personaliza tu propia página web en segundos. Ideal para tiendas online, portfolios, periódicos digitales y más.
 
-![Pagezy Banner](https://yourdomain.com/static/imgs/banner-pagezy.png)
+![Pagezy Banner](./app/static/imgs/pagezy1.png)
 
 ---
 
