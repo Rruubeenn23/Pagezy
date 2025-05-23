@@ -90,6 +90,18 @@ pagezy/
 ```
 
 ---
+## 📸 Capturas
+
+### 🛒 Tienda pública
+![Tienda pública](./app/static/imgs/Captura1.png)
+
+### ⚙️ Panel de administración
+![Admin panel](./app/static/imgs/Captura2.png)
+
+### 🎨 Personalización
+![Configuración](./app/static/imgs/Captura3.png)
+
+---
 
 ## 📌 Créditos
 
