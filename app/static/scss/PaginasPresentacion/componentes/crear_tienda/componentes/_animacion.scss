@@ -1,0 +1,86 @@
+.pantalla-cargando {
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 70vh;
+
+  .contenedor-animacion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .spinner-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+
+    .svg-circulo {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg); // empieza desde arriba
+
+      .fondo-circulo {
+        fill: none;
+        stroke: #eeeeee;
+        stroke-width: 10;
+      }
+
+      .animado-circulo {
+        fill: none;
+        stroke: #1a237e;
+        stroke-width: 10;
+        stroke-linecap: round;
+        stroke-dasharray: 314; // 2πr con r=50
+        stroke-dashoffset: 314;
+        animation: strokeAnim 10s linear forwards;
+      }
+
+      .animado-circulo.finalizado {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    .check {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      font-size: 2.5rem;
+      color: white;
+      background-color: #1a237e;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.4s ease, opacity 0.4s;
+      opacity: 0;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .check.mostrar {
+      transform: translate(-50%, -50%) scale(2);
+      opacity: 1;
+    }
+  }
+
+  .mensajes {
+    font-size: 1.2rem;
+    color: var(--color-secundario);
+    min-height: 1.5em;
+  }
+}
+
+@keyframes strokeAnim {
+  from {
+    stroke-dashoffset: 314;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}

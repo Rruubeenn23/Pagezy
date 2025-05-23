@@ -1,0 +1,50 @@
+<header class="navbar-tienda1">
+  <div class="navbar-container">
+    <a href="/pages/{{ nombre_tienda }}" class="navbar-logo">
+      <img src="{{ config.logo_url }}" alt="Logo" class="logo-img">
+      <span class="logo-text">{{ nombre_tienda }}</span>
+    </a>
+
+    <button class="navbar-toggle" id="navbar-toggle">☰</button>
+
+    <nav class="navbar-links" id="navbar-menu">
+      <a href="/pages/{{ nombre_tienda }}">Inicio</a>
+      <a href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda) }}">Tienda</a>
+      {% if session.get("cliente_nombre") %}
+        <div class="dropdown">
+          <button class="dropdown-toggle">👤 {{ session.get("cliente_nombre") }}</button>
+          <div class="dropdown-menu">
+            <a href="{{ url_for('tienda_publica.cuenta', nombre_tienda=nombre_tienda) }}">Cuenta</a>
+            <a href="{{ url_for('tienda_publica.logout', nombre_tienda=nombre_tienda) }}">Cerrar sesión</a>
+          </div>
+        </div>
+      {% else %}
+        <a href="{{ url_for('tienda_publica.login', nombre_tienda=nombre_tienda) }}">Iniciar sesión</a>
+      {% endif %}
+      <a href="#" class="carrito-icon">🛒</a>
+    </nav>
+  </div>
+</header>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('navbar-toggle');
+    const menu = document.getElementById('navbar-menu');
+    const dropdown = document.querySelector('.dropdown-toggle');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+
+    toggle?.addEventListener('click', () => {
+      menu.classList.toggle('open');
+    });
+
+    dropdown?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdownMenu.style.display = (dropdownMenu.style.display === 'block') ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', () => {
+      dropdownMenu.style.display = 'none';
+    });
+  });
+</script>

@@ -1,0 +1,13 @@
+<nav class="navbar-info1">
+  <div class="navbar-contenido">
+    <a href="/pages/{{ nombre_tienda }}" class="navbar-logo">
+      <img src="{{ config.logo_url }}" alt="Logo" class="logo-img">
+      <span class="logo-text">{{ nombre_tienda }}</span>
+    </a>
+    <div class="navbar-links">
+      <a href="/pages/{{ nombre_tienda }}">Inicio</a>
+      <a href="{{ url_for('tienda_publica.ver_info', nombre_tienda=nombre_tienda) }}">Sobre Nosotros</a>
+      <a href="{{ url_for('tienda_publica.ver_info', nombre_tienda=nombre_tienda) }}">Contacto</a>
+    </div>
+  </div>
+</nav>

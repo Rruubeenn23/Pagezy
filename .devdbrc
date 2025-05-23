@@ -1,0 +1,42 @@
+[
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\vapecommerce\\instance\\main_placeholder.db"
+  },
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\pagezy\\instance\\main_placeholder.db"
+  },
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\pagezy\\app\\instance\\tiendas\\VapeCommerce.db"
+  },
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\pagezy\\app\\instance\\tiendas\\Informacion 1.db"
+  },
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\pagezy\\app\\instance\\tiendas\\Tienda.db"
+  },
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\pagezy\\app\\instance\\tiendas\\tienda2.db"
+  },
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\pagezy\\app\\instance\\tiendas\\a.db"
+  },
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\pagezy\\app\\instance\\tiendas\\GeneLibrary.db"
+  },
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\pagezy\\app\\instance\\tiendas\\Test Responsive.db"
+  },
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\Ruben\\Documents\\Instituto 2024\\TFG\\pagezy\\app\\instance\\tiendas\\KillerGafas.db"
+  }
+]

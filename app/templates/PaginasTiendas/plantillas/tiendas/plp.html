@@ -1,0 +1,123 @@
+{% extends 'PaginasTiendas/base_tienda.html' %}
+
+{% block title %}{{ nombre_tienda }} | Productos{% endblock %}
+
+{% block content %}
+
+{% if config.plantilla == "tienda_1" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/navbar1.html' %}
+{% elif config.plantilla == "tienda_2" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/navbar2.html' %}
+{% endif %}
+
+<!-- FORMULARIO DE BÚSQUEDA Y FILTRO -->
+<form id="filtros-form"
+      class="filtros-productos {% if config.plantilla == 'tienda_1' %}filtros-tienda1{% elif config.plantilla == 'tienda_2' %}filtros-tienda2{% endif %}">
+  <input type="text" name="q" placeholder="Buscar producto..." value="{{ query or '' }}">
+  
+  <select name="categoria">
+    <option value="">Todas las categorías</option>
+    {% for cat in categorias_disponibles %}
+      <option value="{{ cat }}" {% if cat == categoria %}selected{% endif %}>{{ cat }}</option>
+    {% endfor %}
+  </select>
+
+  <select name="ordenar">
+    <option value="">Ordenar por</option>
+    <option value="nombre_asc" {% if ordenar == 'nombre_asc' %}selected{% endif %}>Nombre A–Z</option>
+    <option value="nombre_desc" {% if ordenar == 'nombre_desc' %}selected{% endif %}>Nombre Z–A</option>
+    <option value="precio_asc" {% if ordenar == 'precio_asc' %}selected{% endif %}>Precio menor a mayor</option>
+    <option value="precio_desc" {% if ordenar == 'precio_desc' %}selected{% endif %}>Precio mayor a menor</option>
+  </select>
+</form>
+
+
+
+<!-- CONTENEDOR DE PRODUCTOS AJAX -->
+<div id="productos-container">
+  {% if config.plantilla == "tienda_1" %}
+    <section class="productos-tienda1" id="productos">
+      <div class="productos-grid">
+        {% for producto in productos %}
+        <a href="{{ url_for('tienda_publica.ver_producto', nombre_tienda=nombre_tienda, producto_id=producto.id) }}">
+          <div class="producto-card">
+            <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+            <h3>{{ producto.nombre }}</h3>
+            <p class="precio">{{ producto.precio | round(2) }} €</p>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+  {% elif config.plantilla == "tienda_2" %}
+    <section class="productos-grid" id="productos">
+      {% for producto in productos %}
+      <div class="producto-item">
+        <a href="{{ url_for('tienda_publica.ver_producto', nombre_tienda=nombre_tienda, producto_id=producto.id) }}">
+          <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+          <h3>{{ producto.nombre }}</h3>
+          <p class="precio">{{ producto.precio }} €</p>
+        </a>
+        <button class="btn-carrito" id="btn-agregar-carrito"
+          data-id="{{ producto.id }}"
+          data-nombre="{{ producto.nombre }}"
+          data-precio="{{ producto.precio }}"
+          data-imagen="{{ producto.imagen_url or '' }}">
+          Añadir al carrito 🛒
+        </button>
+      </div>
+      {% endfor %}
+    </section>
+  {% endif %}
+</div>
+
+<!-- PAGINACIÓN -->
+{% if total_paginas > 1 %}
+<div class="paginacion">
+  {% if pagina_actual > 1 %}
+    <a href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda, pagina=pagina_actual-1, q=query, categoria=categoria, precio_min=precio_min, precio_max=precio_max) }}" class="pagina-anterior">← Anterior</a>
+  {% endif %}
+
+  {% for i in range(1, total_paginas + 1) %}
+    {% if i == pagina_actual %}
+      <span class="pagina-actual">{{ i }}</span>
+    {% else %}
+      <a href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda, pagina=i, q=query, categoria=categoria, precio_min=precio_min, precio_max=precio_max) }}">{{ i }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if pagina_actual < total_paginas %}
+    <a href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda, pagina=pagina_actual+1, q=query, categoria=categoria, precio_min=precio_min, precio_max=precio_max) }}" class="pagina-siguiente">Siguiente →</a>
+  {% endif %}
+</div>
+{% endif %}
+
+<!-- FOOTER -->
+{% if config.plantilla == "tienda_1" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/footer1.html' %}
+{% elif config.plantilla == "tienda_2" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/footer2.html' %}
+{% endif %}
+
+<!-- AJAX PARA FILTROS -->
+<script>
+  const form = document.getElementById('filtros-form');
+  const productosContainer = document.getElementById('productos-container');
+  let timeout = null;
+
+  form.addEventListener('input', () => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      const params = new URLSearchParams(new FormData(form));
+      fetch(window.location.pathname + '?' + params.toString(), {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      })
+      .then(res => res.text())
+      .then(html => {
+        productosContainer.innerHTML = html;
+      });
+    }, 300);
+  });
+</script>
+
+{% endblock %}

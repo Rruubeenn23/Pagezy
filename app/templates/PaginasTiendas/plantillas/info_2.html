@@ -1,0 +1,20 @@
+{% extends 'PaginasTiendas/base_tienda.html' %}
+
+{% block title %}{{ nombre_tienda }} | Información{% endblock %}
+
+{% block content %}
+
+<header class="info2-header" id="inicio">
+  {% include 'PaginasTiendas/plantillas/info/components/navbar_info2.html' %}
+  <div class="info2-hero">
+    <h1 class="titulo">{{ nombre_tienda }}</h1>
+    <p>{{ config.descripcion_portfolio or 'Este es un texto de ejemplo. Es un espacio ideal para brindar más detalles sobre tu producto o servicio.' }}</p>
+    <a href="{{ url_for('tienda_publica.ver_info', nombre_tienda=nombre_tienda) }}" class="btn-accion">Empezar</a>
+  </div>
+</header>
+
+{% include 'PaginasTiendas/plantillas/info/components/nosotros_info.html' %}
+
+{% include 'PaginasTiendas/plantillas/info/components/footer_info.html' %}
+
+{% endblock %}
