@@ -10,7 +10,9 @@ Crea y personaliza tu propia página web en segundos. Ideal para tiendas online,
 ## 🌐 Acceso público
 
 🔗 Demo en vivo: [https://pagezy.onrender.com](https://pagezy.onrender.com)  
-📺 Video demostración: [YouTube - Pagezy Demo](https://youtube.com/your-demo-link)  
+Puede tardar en lanzarse hasta 50 segundos por inactividad
+
+📺 Video demostración: [YouTube - Pagezy Demo](https://youtu.be/N93D4RPEMRg)  
 📄 Memoria del proyecto: [Descargar PDF](./Memoria_TFG_RubénCereceda.pdf)
 
 ---
@@ -105,4 +107,4 @@ pagezy/
 
 ## 📌 Créditos
 
-Proyecto desarrollado como Trabajo de Fin de Grado (TFG) para el curso 2024 por **Rubén**.
+Proyecto desarrollado como Trabajo de Fin de Grado (TFG) para el curso 2025 por **Rubén**.
