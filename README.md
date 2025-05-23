@@ -107,4 +107,4 @@ pagezy/
 
 ## 📌 Créditos
 
-Proyecto desarrollado como Trabajo de Fin de Grado (TFG) para el curso 2024 por **Rubén**.
+Proyecto desarrollado como Trabajo de Fin de Grado (TFG) para el curso 2025 por **Rubén**.
