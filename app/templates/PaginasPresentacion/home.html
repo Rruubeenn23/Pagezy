@@ -1,6 +1,6 @@
 {% extends 'PaginasPresentacion/base.html' %}
 
-{% block title %}Inicio | PAGEZY{% endblock %}
+{% block title %}Inicio | Pagezy{% endblock %}
 
 {% block content %}
 <section class="hero-carousel">
@@ -8,22 +8,22 @@
     <div class="slide active">
       <img src="/static/imgs/Captura1.png" alt="Slide 1">
       <div class="overlay">
-        <h1>Crea tu primera página web</h1>
-        <p>Fácil y optimizada para todos.</p>
+        <h1>Crea tu tienda en segundos</h1>
+        <p>Conecta, personaliza y empieza a vender hoy mismo.</p>
       </div>
     </div>
     <div class="slide">
       <img src="/static/imgs/Captura2.png" alt="Slide 2">
       <div class="overlay">
-        <h1>Personaliza tu tienda al detalle</h1>
-        <p>Colores, productos, pagos… ¡Todo tuyo!</p>
+        <h1>Diseños que se adaptan a ti</h1>
+        <p>Elige entre múltiples plantillas y estilos para tu tienda.</p>
       </div>
     </div>
     <div class="slide">
       <img src="/static/imgs/Captura3.png" alt="Slide 3">
       <div class="overlay">
-        <h1>Crea tu página de informacion hoy mismo</h1>
-        <p>Portfolio, Periódicos y todo lo que quieras</p>
+        <h1>Control total desde tu panel de admin</h1>
+        <p>Gestiona productos, pedidos y clientes de forma sencilla.</p>
       </div>
     </div>
   </div>
@@ -39,39 +39,41 @@
   <h2>¿Cómo funciona?</h2>
   <div class="pasos">
     <div class="paso">
-      <h3>1. Rellena la informacion</h3>
-      <p>Nombre para la web, tu nombre, el correo electrónico...</p>
+      <h3>1. Configura tu tienda</h3>
+      <p>Introduce tu nombre, elige colores, plantilla y sube tu logo.</p>
     </div>
     <div class="paso">
-      <h3>2. Personaliza</h3>
-      <p>Elige colores, sube tu logo y carga tus productos.</p>
+      <h3>2. Carga productos</h3>
+      <p>Agrega imágenes, precios, categorías y controla tu stock.</p>
     </div>
     <div class="paso">
-      <h3>3. Publica y vende</h3>
-      <p>Lanza tu web y empieza a generar de inmediato.</p>
+      <h3>3. Administra y crece</h3>
+      <p>Gestiona pedidos, clientes y mejora tu negocio desde un solo lugar.</p>
     </div>
   </div>
 </section>
+
 <section class="testimonios">
-  <h2>Lo que dicen nuestros clientes</h2>
+  <h2>Lo que dicen nuestros usuarios</h2>
   <div class="testimonios-grid">
     <blockquote>
-      <p>"Crear mi tienda fue facilísimo. Y el soporte técnico es increíble."</p>
-      <cite>– Laura G.</cite>
+      <p>"Creé mi tienda en 5 minutos y ya estoy recibiendo pedidos."</p>
+      <cite>– Carla M., diseñadora de joyas</cite>
     </blockquote>
     <blockquote>
-      <p>"Ahora tengo una web en la que puedan contratarme como limpiador."</p>
-      <cite>– Javier M.</cite>
+      <p>"Puedo ver mis clientes, pedidos y productos sin complicaciones."</p>
+      <cite>– Daniel H., emprendedor</cite>
     </blockquote>
     <blockquote>
-      <p>"¡Recomiendo PAGEZY a cualquier emprendedor!"</p>
-      <cite>– Marcos R.</cite>
+      <p>"La personalización por plantilla es justo lo que necesitaba."</p>
+      <cite>– Ana R., artesana</cite>
     </blockquote>
   </div>
 </section>
+
 <section class="cta-final">
   <h2>¿Listo para lanzar tu web?</h2>
-  <p>Empieza a generar online hoy mismo. ¡Es gratis probarlo!</p>
-  <a href="{{ url_for('crear_tienda.paso1') }}" class="btn-cta">Crear mi WEB</a>
+  <p>Empieza gratis, sin conocimientos técnicos ni complicaciones.</p>
+  <a href="{{ url_for('crear_tienda.paso1') }}" class="btn-cta">Crear mi tienda</a>
 </section>
-  {% endblock %}
+{% endblock %}

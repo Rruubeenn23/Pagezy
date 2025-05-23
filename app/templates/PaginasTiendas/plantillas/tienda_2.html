@@ -10,7 +10,7 @@
 <section class="hero-tienda2">
   <div class="hero-contenido">
     <h1>Bienvenido a {{ nombre_tienda }}</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <p>{{ config.titulo_tienda }}</p>
     <a href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda) }}" class="btn-explorar">Explorar productos</a>
   </div>
 </section>

@@ -4,7 +4,10 @@
       <img src="{{ config.logo_url }}" alt="Logo" class="logo-img">
       <span class="logo-text">{{ nombre_tienda }}</span>
     </a>
-    <nav class="navbar-links">
+
+    <button class="navbar-toggle" id="navbar-toggle">☰</button>
+
+    <nav class="navbar-links" id="navbar-menu">
       <a href="/pages/{{ nombre_tienda }}">Inicio</a>
       <a href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda) }}">Tienda</a>
       {% if session.get("cliente_nombre") %}
@@ -26,19 +29,22 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const toggle = document.querySelector('.dropdown-toggle');
-    const menu = document.querySelector('.dropdown-menu');
+    const toggle = document.getElementById('navbar-toggle');
+    const menu = document.getElementById('navbar-menu');
+    const dropdown = document.querySelector('.dropdown-toggle');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
 
-    if (toggle) {
-      toggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-      });
+    toggle?.addEventListener('click', () => {
+      menu.classList.toggle('open');
+    });
 
-      // Cierra el menú si haces clic fuera
-      document.addEventListener('click', () => {
-        menu.style.display = 'none';
-      });
-    }
+    dropdown?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdownMenu.style.display = (dropdownMenu.style.display === 'block') ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', () => {
+      dropdownMenu.style.display = 'none';
+    });
   });
 </script>

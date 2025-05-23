@@ -23,7 +23,7 @@ class Cliente(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     telefono = db.Column(db.String(20))
     direccion = db.Column(db.String(255))
-    password_hash = db.Column(db.String(255), nullable=False)  # 🔐 Contraseña hasheada
+    password_hash = db.Column(db.String(255), nullable=False)  # Contraseña hasheada
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

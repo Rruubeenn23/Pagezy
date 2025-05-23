@@ -8,7 +8,10 @@
       {% endif %}
       <span class="logo-text">{{ nombre_tienda }}</span>
     </a>
-    <nav class="tienda2-links">
+
+    <button class="tienda2-toggle" id="tienda2-toggle">☰</button>
+
+    <nav class="tienda2-links" id="tienda2-menu">
       <a class="btn-contacto" href="/pages/{{ nombre_tienda }}">Inicio</a>
       <a class="btn-contacto" href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda) }}">Tienda</a>
       {% if session.get("cliente_nombre") %}
@@ -27,23 +30,24 @@
   </div>
 </header>
 
-
-
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const toggle = document.querySelector('.dropdown-toggle');
-    const menu = document.querySelector('.dropdown-menu');
+    const toggle = document.getElementById('tienda2-toggle');
+    const menu = document.getElementById('tienda2-menu');
+    const dropdown = document.querySelector('.dropdown-toggle');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
 
-    if (toggle) {
-      toggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-      });
+    toggle?.addEventListener('click', () => {
+      menu.classList.toggle('open');
+    });
 
-      // Cierra el menú si haces clic fuera
-      document.addEventListener('click', () => {
-        menu.style.display = 'none';
-      });
-    }
+    dropdown?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdownMenu.style.display = (dropdownMenu.style.display === 'block') ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', () => {
+      dropdownMenu.style.display = 'none';
+    });
   });
 </script>

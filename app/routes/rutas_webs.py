@@ -42,6 +42,7 @@ def ver_tienda(nombre_tienda):
             "color_fondo": config_data["color_fondo"],
             "logo_url": config_data["logo_url"],
             "plantilla": config_data.get("plantilla", "tienda_1"),
+            "titulo_tienda": config_data.get("titulo_tienda"),
             "descripcion_portfolio": config_data.get("descripcion_portfolio"),
             "imagen_portfolio": config_data.get("imagen_portfolio"),
             "sobre_nosotros": config_data.get("sobre_nosotros"),
@@ -447,7 +448,6 @@ def register(nombre_tienda):
                 email=email,
                 telefono=telefono,
                 direccion=direccion,
-                fecha_registro=datetime.utcnow(),
                 password_hash=password_hash  # ✅ Usamos el campo correcto
             ))
 
