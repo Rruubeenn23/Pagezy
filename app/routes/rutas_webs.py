@@ -248,7 +248,8 @@ def guardar_pedido(nombre_tienda):
     direccion = data.get("direccion", "").strip()
 
     tienda = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
-    engine = create_engine(f"sqlite:///{tienda.ruta_db}")
+    db_path = os.path.join(os.getcwd(), tienda.ruta_db)
+    engine = create_engine(f"sqlite:///{db_path}")
     metadata = MetaData()
     metadata.reflect(bind=engine)
 
@@ -521,7 +522,8 @@ def eliminar_producto(nombre_tienda, producto_id):
         return redirect(url_for("tienda_publica.login", nombre_tienda=nombre_tienda))
 
     tienda = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
-    engine = create_engine(f"sqlite:///{tienda.ruta_db}")
+    db_path = os.path.join(os.getcwd(), tienda_publica.ruta_db)
+    engine = create_engine(f"sqlite:///{db_path}")
     metadata = MetaData()
     metadata.reflect(bind=engine)
     producto_table = metadata.tables["producto"]
@@ -544,7 +546,8 @@ def eliminar_pedido(nombre_tienda, pedido_id):
         return redirect(url_for("tienda_publica.login", nombre_tienda=nombre_tienda))
 
     tienda = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
-    engine = create_engine(f"sqlite:///{tienda.ruta_db}")
+    db_path = os.path.join(os.getcwd(), tienda.ruta_db)
+    engine = create_engine(f"sqlite:///{db_path}")
     metadata = MetaData()
     metadata.reflect(bind=engine)
     pedido_table = metadata.tables["pedido"]
@@ -569,7 +572,8 @@ def actualizar_estado_pedido(nombre_tienda, pedido_id):
     nuevo_estado = request.form.get("estado")
 
     tienda = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
-    engine = create_engine(f"sqlite:///{tienda.ruta_db}")
+    db_path = os.path.join(os.getcwd(), tienda.ruta_db)
+    engine = create_engine(f"sqlite:///{db_path}")
     metadata = MetaData()
     metadata.reflect(bind=engine)
     pedido_table = metadata.tables["pedido"]
@@ -596,7 +600,8 @@ def eliminar_cliente(nombre_tienda, cliente_id):
         return redirect(url_for("tienda_publica.login", nombre_tienda=nombre_tienda))
 
     tienda = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
-    engine = create_engine(f"sqlite:///{tienda.ruta_db}")
+    db_path = os.path.join(os.getcwd(), tienda.ruta_db)
+    engine = create_engine(f"sqlite:///{db_path}")
     metadata = MetaData()
     metadata.reflect(bind=engine)
     cliente_table = metadata.tables["cliente"]
@@ -620,7 +625,8 @@ def cuenta(nombre_tienda):
     tienda = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
     tienda_proceso = TiendaEnProceso.query.filter_by(nombre_tienda=nombre_tienda).first()
 
-    engine = create_engine(f"sqlite:///{tienda.ruta_db}")
+    db_path = os.path.join(os.getcwd(), tienda.ruta_db)
+    engine = create_engine(f"sqlite:///{db_path}")
     metadata = MetaData()
     metadata.reflect(bind=engine)
 
