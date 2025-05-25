@@ -522,7 +522,7 @@ def eliminar_producto(nombre_tienda, producto_id):
         return redirect(url_for("tienda_publica.login", nombre_tienda=nombre_tienda))
 
     tienda = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
-    db_path = os.path.join(os.getcwd(), tienda_publica.ruta_db)
+    db_path = os.path.join(os.getcwd(), tienda.ruta_db)
     engine = create_engine(f"sqlite:///{db_path}")
     metadata = MetaData()
     metadata.reflect(bind=engine)
