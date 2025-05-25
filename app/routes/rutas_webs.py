@@ -19,7 +19,8 @@ def ver_tienda(nombre_tienda):
     tienda_publica = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
     tienda_proceso = TiendaEnProceso.query.filter_by(nombre_tienda=nombre_tienda).first()
 
-    engine = create_engine(f"sqlite:///{tienda_publica.ruta_db}")
+    db_path = os.path.join(os.getcwd(), tienda_publica.ruta_db)
+    engine = create_engine(f"sqlite:///{db_path}")
     metadata = MetaData()
     metadata.reflect(bind=engine)
 
@@ -69,7 +70,8 @@ from flask import request
 @tienda_bp.route("/<nombre_tienda>/productos/<int:pagina>")
 def ver_productos(nombre_tienda, pagina=1):
     tienda_publica = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
-    engine = create_engine(f"sqlite:///{tienda_publica.ruta_db}")
+    db_path = os.path.join(os.getcwd(), tienda_publica.ruta_db)
+    engine = create_engine(f"sqlite:///{db_path}")
     metadata = MetaData()
     metadata.reflect(bind=engine)
 
@@ -161,7 +163,9 @@ def ver_info(nombre_tienda):
     tienda_publica = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
     tienda_proceso = TiendaEnProceso.query.filter_by(nombre_tienda=nombre_tienda).first()
 
-    engine = create_engine(f"sqlite:///{tienda_publica.ruta_db}")
+    db_path = os.path.join(os.getcwd(), tienda_publica.ruta_db)
+    engine = create_engine(f"sqlite:///{db_path}")
+
     metadata = MetaData()
     metadata.reflect(bind=engine)
 
@@ -198,7 +202,8 @@ def ver_producto(nombre_tienda, producto_id):
     tienda_publica = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
     tienda_proceso = TiendaEnProceso.query.filter_by(nombre_tienda=nombre_tienda).first()
 
-    engine = create_engine(f"sqlite:///{tienda_publica.ruta_db}")
+    db_path = os.path.join(os.getcwd(), tienda_publica.ruta_db)
+    engine = create_engine(f"sqlite:///{db_path}")
     metadata = MetaData()
     metadata.reflect(bind=engine)
 
@@ -317,7 +322,8 @@ def guardar_pedido(nombre_tienda):
 @tienda_bp.route("/<nombre_tienda>/login", methods=["GET", "POST"])
 def login(nombre_tienda):
     tienda_publica = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
-    engine = create_engine(f"sqlite:///{tienda_publica.ruta_db}")
+    db_path = os.path.join(os.getcwd(), tienda_publica.ruta_db)
+    engine = create_engine(f"sqlite:///{db_path}")
     metadata = MetaData()
     metadata.reflect(bind=engine)
 
@@ -394,7 +400,8 @@ def login(nombre_tienda):
 def register(nombre_tienda):
     tienda_publica = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
 
-    engine = create_engine(f"sqlite:///{tienda_publica.ruta_db}")
+    db_path = os.path.join(os.getcwd(), tienda_publica.ruta_db)
+    engine = create_engine(f"sqlite:///{db_path}")
     metadata = MetaData()
     metadata.reflect(bind=engine)
 
@@ -470,7 +477,8 @@ def admin_panel(nombre_tienda):
     tienda_publica = TiendaPublica.query.filter_by(nombre_tienda=nombre_tienda).first_or_404()
     tienda_proceso = TiendaEnProceso.query.filter_by(nombre_tienda=nombre_tienda).first()
 
-    engine = create_engine(f"sqlite:///{tienda_publica.ruta_db}")
+    db_path = os.path.join(os.getcwd(), tienda_publica.ruta_db)
+    engine = create_engine(f"sqlite:///{db_path}")
     metadata = MetaData()
     metadata.reflect(bind=engine)
 
