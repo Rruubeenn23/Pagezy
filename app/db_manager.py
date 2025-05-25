@@ -20,10 +20,13 @@ def finalizar_tienda(tienda_id):
         raise ValueError("Tienda no encontrada o ya finalizada")
 
     nombre_db = f"{tienda.nombre_tienda}.db"
-    ruta_db = os.path.abspath(os.path.join(TIENDAS_DIR, nombre_db))  # ✅ RUTA ABSOLUTA
+    
+    # ✅ Ruta relativa respecto a Flask
+    relative_path = os.path.join("instance", "tiendas", nombre_db)
+    absolute_path = os.path.abspath(os.path.join(BASE_DIR, relative_path))
 
-    # Crear engine y session
-    engine = create_engine(f"sqlite:///{ruta_db}")
+    # Crear engine y session con ruta absoluta para SQLAlchemy
+    engine = create_engine(f"sqlite:///{absolute_path}")
     Session = sessionmaker(bind=engine)
     session = Session()
 
@@ -32,7 +35,6 @@ def finalizar_tienda(tienda_id):
 
     # Insertar productos seleccionados
     productos_base = []
-
     if tienda.productos_seleccionados:
         productos_ids = json.loads(tienda.productos_seleccionados)
         productos_base = ProductoBase.query.filter(ProductoBase.id.in_(productos_ids)).all()
@@ -50,7 +52,6 @@ def finalizar_tienda(tienda_id):
         )
         session.add(producto)
 
-
     # Insertar configuración visual
     configuracion = ConfiguracionVisual(
         color_principal=tienda.color_principal,
@@ -65,11 +66,8 @@ def finalizar_tienda(tienda_id):
         sobre_nosotros=tienda.sobre_nosotros,
         servicios_portfolio=tienda.servicios_portfolio
     )
-
-
     session.add(configuracion)
 
-    # Registrar tienda públicamente si no existe
     tienda_publica = TiendaPublica.query.filter_by(nombre_tienda=tienda.nombre_tienda).first()
 
     if not tienda_publica:
@@ -82,13 +80,10 @@ def finalizar_tienda(tienda_id):
         )
         db.session.add(tienda_publica)
 
-
-    # ✅ SIEMPRE actualiza la ruta
-    tienda_publica.ruta_db = ruta_db
-
-
+    # ✅ Guarda la ruta RELATIVA
+    tienda_publica.ruta_db = relative_path
+    tienda.ruta_db_tienda = relative_path
     tienda.finalizado = True
-    tienda.ruta_db_tienda = ruta_db
 
     session.commit()
     session.close()
