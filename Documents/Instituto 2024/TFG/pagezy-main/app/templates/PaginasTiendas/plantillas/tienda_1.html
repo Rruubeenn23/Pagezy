@@ -1,0 +1,46 @@
+{% extends 'PaginasTiendas/base_tienda.html' %}
+
+{% block title %}{{ nombre_tienda }}{% endblock %}
+
+{% block content %}
+
+{% include 'PaginasTiendas/plantillas/tiendas/components/navbar1.html' %}
+
+<section class="hero-tienda1" id="inicio">
+  <div class="slider-hero">
+    <div class="slider-track">
+      {% for imagen in imagenes %}
+      <div class="slider-item">
+        <img src="{{ imagen }}" alt="Imagen personalizada">
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="hero-overlay">
+    <div class="hero-contenido">
+      <h1>{{ config.titulo_tienda or 'Tienda online' }}</h1>
+      <a href="{{ url_for('tienda_publica.ver_productos', nombre_tienda=nombre_tienda) }}" class="btn-hero">Ver productos</a>
+    </div>
+  </div>
+</section>
+
+<section class="productos-tienda1" id="productos">
+  <div class="productos-grid">
+    {% for producto in productos %}
+    <a href="{{ url_for('tienda_publica.ver_producto', nombre_tienda=nombre_tienda, producto_id=producto.id) }}">
+      <div class="producto-card">
+        <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+        <h3>{{ producto.nombre }}</h3>
+        <p class="precio">{{ producto.precio | round(2) }} €</p>
+      </div>
+    </a>
+
+    {% endfor %}
+  </div>
+</section>
+
+{% include 'PaginasTiendas/plantillas/tiendas/components/footer1.html' %}
+
+{% endblock %}
+

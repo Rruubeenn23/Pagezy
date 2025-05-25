@@ -1,0 +1,43 @@
+.info-contacto {
+  background-color: #f1f1f1;
+  padding: 4rem 2rem;
+  text-align: center;
+  min-height: 30vh;
+
+  .contacto-contenido {
+    max-width: 800px;
+    margin: 0 auto;
+
+    h2 {
+      font-size: 2rem;
+      color: var(--color-principal);
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #444;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .contacto-datos {
+      margin-top: 2rem;
+
+      p {
+        font-size: 1.1rem;
+        color: var(--color-secundario);
+        margin-bottom: 0.5rem;
+
+        a {
+          color: var(--color-secundario);
+          text-decoration: underline;
+
+          &:hover {
+            color: var(--color-principal);
+          }
+        }
+      }
+    }
+  }
+}

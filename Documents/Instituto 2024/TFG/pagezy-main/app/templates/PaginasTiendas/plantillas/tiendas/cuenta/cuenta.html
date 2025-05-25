@@ -1,0 +1,97 @@
+{% extends 'PaginasTiendas/base_tienda.html' %}
+
+{% block title %}Mi cuenta | {{ nombre_tienda }}{% endblock %}
+
+{% block content %}
+
+{# --- NAVBAR dinámico --- #}
+{% if config.plantilla == "tienda_1" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/navbar1.html' %}
+{% elif config.plantilla == "tienda_2" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/navbar2.html' %}
+{% endif %}
+
+<section class="admin-panel">
+  <div class="admin-sidebar">
+    <h2>Mi cuenta</h2>
+    <ul>
+      <li class="active" id="btn-datos">📋 Mis Datos</li>
+      <li id="btn-compras">🛍️ Mis Compras</li>
+    </ul>
+  </div>
+
+  <div class="admin-contenido">
+    <div id="seccion-datos" class="tabla-seccion">
+      <h3>Datos personales</h3>
+      <p><strong>Nombre:</strong> {{ cliente.nombre }}</p>
+      <p><strong>Email:</strong> {{ cliente.email }}</p>
+      <p><strong>Teléfono:</strong> {{ cliente.telefono or 'No registrado' }}</p>
+      <p><strong>Dirección:</strong> {{ cliente.direccion or 'No registrada' }}</p>
+    </div>
+
+    <div id="seccion-compras" class="tabla-seccion" style="display: none;">
+      <h3>Mis Compras</h3>
+      {% if compras %}
+        <table>
+          <thead>
+            <tr>
+              <th>Pedido</th>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Precio Unitario</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for compra in compras %}
+              <tr>
+                <td>#{{ compra.pedido_id }}</td>
+                <td>{{ compra.producto }}</td>
+                <td>{{ compra.cantidad }}</td>
+                <td>{{ compra.precio_unitario }}€</td>
+                <td>{{ compra.subtotal | round(2) }}€</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No hay compras registradas.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{# --- FOOTER dinámico --- #}
+{% if config.plantilla == "tienda_1" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/footer1.html' %}
+{% elif config.plantilla == "tienda_2" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/footer2.html' %}
+{% endif %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const btnDatos = document.getElementById("btn-datos");
+    const btnCompras = document.getElementById("btn-compras");
+    const seccionDatos = document.getElementById("seccion-datos");
+    const seccionCompras = document.getElementById("seccion-compras");
+
+    btnDatos.addEventListener("click", () => {
+      seccionDatos.style.display = "block";
+      seccionCompras.style.display = "none";
+      btnDatos.classList.add("active");
+      btnCompras.classList.remove("active");
+    });
+
+    btnCompras.addEventListener("click", () => {
+      seccionDatos.style.display = "none";
+      seccionCompras.style.display = "block";
+      btnDatos.classList.remove("active");
+      btnCompras.classList.add("active");
+    });
+
+    // Mostrar datos por defecto
+    btnDatos.click();
+  });
+</script>
+
+{% endblock %}

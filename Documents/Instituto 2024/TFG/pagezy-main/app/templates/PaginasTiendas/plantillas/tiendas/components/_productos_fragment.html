@@ -1,0 +1,34 @@
+{% if config.plantilla == "tienda_1" %}
+<section class="productos-tienda1" id="productos">
+  <div class="productos-grid">
+    {% for producto in productos %}
+    <a href="{{ url_for('tienda_publica.ver_producto', nombre_tienda=nombre_tienda, producto_id=producto.id) }}">
+      <div class="producto-card">
+        <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+        <h3>{{ producto.nombre }}</h3>
+        <p class="precio">{{ producto.precio | round(2) }} €</p>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% elif config.plantilla == "tienda_2" %}
+<section class="productos-grid" id="productos">
+  {% for producto in productos %}
+  <div class="producto-item">
+    <a href="{{ url_for('tienda_publica.ver_producto', nombre_tienda=nombre_tienda, producto_id=producto.id) }}">
+      <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+      <h3>{{ producto.nombre }}</h3>
+      <p class="precio">{{ producto.precio }} €</p>
+    </a>
+    <button class="btn-carrito"
+      data-id="{{ producto.id }}"
+      data-nombre="{{ producto.nombre }}"
+      data-precio="{{ producto.precio }}"
+      data-imagen="{{ producto.imagen_url or '' }}">
+      Añadir al carrito 🛒
+    </button>
+  </div>
+  {% endfor %}
+</section>
+{% endif %}

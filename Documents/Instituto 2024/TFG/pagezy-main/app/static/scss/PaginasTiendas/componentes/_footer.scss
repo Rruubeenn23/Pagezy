@@ -1,0 +1,23 @@
+.footer-tienda {
+    padding: 2rem 0;
+    margin: 1rem;
+
+    text-align: center;
+  
+    .contenedor-footer {
+      max-width: 1200px;
+      margin: 0 auto;
+  
+      p {
+        margin: 0.2rem 0;
+        font-size: 0.95rem;
+        color: var(--color-principal);
+  
+        &:last-child {
+          font-size: 0.85rem;
+          opacity: 0.85;
+        }
+      }
+    }
+  }
+  

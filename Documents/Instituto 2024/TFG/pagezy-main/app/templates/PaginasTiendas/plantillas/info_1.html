@@ -1,0 +1,36 @@
+{% extends 'PaginasTiendas/base_tienda.html' %}
+
+{% block title %}{{ nombre_tienda }} | Página de información{% endblock %}
+
+{% block content %}
+
+{% block navbar %}
+
+{% endblock %}
+
+{% include 'PaginasTiendas/plantillas/info/components/navbar_info1.html' %}
+
+{% block hero %}
+<section class="info-hero" id="inicio">
+  <div class="info-contenido">
+    <div class="texto">
+      <h1>{{ nombre_tienda }}</h1>
+      <p>{{ config.descripcion_portfolio or 'Aquí irá la descripción principal de tu página informativa.' }}</p>
+      <a href="{{ url_for('tienda_publica.ver_info', nombre_tienda=nombre_tienda) }}" class="btn-info">Más información</a>
+    </div>
+    <div class="imagen">
+      {% if config.imagen_portfolio %}
+        <img class="placeholder-img" src="{{ config.imagen_portfolio }}" alt="Imagen principal">
+      {% else %}
+        <div class="placeholder-img">Imagen</div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% include 'PaginasTiendas/plantillas/info/components/servicios_info.html' %}
+
+{% include 'PaginasTiendas/plantillas/info/components/footer_info.html' %}
+
+{% endblock %}

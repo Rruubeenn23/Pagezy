@@ -1,0 +1,70 @@
+{% extends 'PaginasTiendas/base_tienda.html' %}
+
+{% block title %}{{ producto.nombre }} | {{ nombre_tienda }}{% endblock %}
+
+{% block content %}
+
+{% if config.plantilla == "tienda_1" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/navbar1.html' %}
+
+{% elif config.plantilla == "tienda_2" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/navbar2.html' %}
+
+{% endif %}
+
+<section class="pdp">
+  <div class="pdp-contenido">
+    <div class="pdp-imagen">
+      {% if producto.imagen_url %}
+        <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+      {% else %}
+        <div class="imagen-placeholder">Sin imagen</div>
+      {% endif %}
+    </div>
+    <div class="pdp-detalles">
+      <h1>{{ producto.nombre }}</h1>
+      <p class="pdp-precio">{{ producto.precio }} €</p>
+      {% if producto.descripcion %}
+        <p class="pdp-descripcion">{{ producto.descripcion }}</p>
+      {% endif %}
+      <button class="btn-carrito" id="btn-agregar-carrito"
+        data-id="{{ producto.id }}"
+        data-nombre="{{ producto.nombre }}"
+        data-precio="{{ producto.precio }}"
+        data-imagen="{{ producto.imagen_url or '' }}">
+        Añadir al carrito 🛒
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="pdp-descripcion-general">
+  <div class="descripcion-contenido">
+    <h2>Información adicional</h2>
+    <p>
+      Gracias por visitar nuestra tienda. En <strong>{{ nombre_tienda }}</strong> trabajamos con dedicación para ofrecer productos de calidad como <em>{{ producto.nombre }}</em>.
+      Si tienes dudas o deseas más detalles sobre este producto o cualquier otro, estamos encantados de ayudarte.
+    </p>
+    <p>
+      Este proyecto ha sido desarrollado por <strong>{{ tienda.nombre }} {{ tienda.apellidos }}</strong>, quien está comprometido con la excelencia y la atención al cliente.
+    </p>
+    <p>
+      Para consultas personalizadas, contáctanos directamente:
+      <br><strong>Teléfono:</strong> {{ tienda.telefono }}
+      <br><strong>Email:</strong> <a href="mailto:{{ tienda.email }}">{{ tienda.email }}</a>
+    </p>
+    <p>
+      Recuerda que puedes volver a la tienda en cualquier momento para seguir explorando nuestros productos.
+    </p>
+  </div>
+</section>
+
+
+{% if config.plantilla == "tienda_1" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/footer1.html' %}
+
+{% elif config.plantilla == "tienda_2" %}
+  {% include 'PaginasTiendas/plantillas/tiendas/components/footer2.html' %}
+
+{% endif %}
+{% endblock %}

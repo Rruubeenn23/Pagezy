@@ -1,0 +1,30 @@
+.progreso-circular {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  svg {
+    width: 100px;
+    height: 100px;
+  }
+
+  .fondo {
+    fill: none;
+    stroke: #eee;
+    stroke-width: 3.8;
+  }
+
+  .progreso {
+    fill: none;
+    stroke: $color-principal;
+    stroke-width: 3.8;
+    stroke-linecap: round;
+    transition: stroke-dasharray 0.5s ease;
+  }
+
+  .etiqueta {
+    fill: $color-principal;
+    font-size: 1.2rem;
+    text-anchor: middle;
+  }
+}

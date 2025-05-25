@@ -1,0 +1,14 @@
+.crear-tienda {
+  background-color: $color-fondo;
+  padding: 4rem 2rem;
+  min-height: 100vh;
+}
+
+.ventana {
+  max-width: 700px;
+  margin: 0 auto;
+  background: white;
+  padding: 2rem 3rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}

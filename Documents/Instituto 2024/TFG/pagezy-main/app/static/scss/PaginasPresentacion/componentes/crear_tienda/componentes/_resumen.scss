@@ -1,0 +1,92 @@
+.resumen-confirmacion {
+    padding: 2rem 0;
+  
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: $color-secundario;
+    }
+  
+    h3 {
+      margin-top: 2rem;
+      font-size: 1.3rem;
+      color: $color-principal;
+    }
+  
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+  
+      li {
+        margin-bottom: 0.5rem;
+  
+        span {
+          padding: 0.25rem 0.5rem;
+          border-radius: 6px;
+          color: white;
+          font-weight: bold;
+        }
+      }
+    }
+  
+    .productos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+  
+    .producto-card {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      text-align: center;
+      transition: transform 0.2s;
+  
+      &:hover {
+        transform: translateY(-4px);
+      }
+  
+      img {
+        max-height: 80px;
+        object-fit: contain;
+        margin-bottom: 0.5rem;
+      }
+  
+      h4 {
+        font-size: 1rem;
+        margin: 0.5rem 0;
+        color: $color-secundario;
+      }
+  
+      p {
+        font-size: 0.85rem;
+        margin: 0.25rem 0;
+        color: #555;
+      }
+    }
+  
+    form {
+      margin-top: 2rem;
+      text-align: center;
+  
+      button {
+        background-color: $color-principal;
+        color: white;
+        padding: 0.75rem 2rem;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+  
+        &:hover {
+          background-color: darken($color-principal, 10%);
+        }
+      }
+    }
+  }
+  

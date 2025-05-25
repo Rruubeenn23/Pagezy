@@ -1,0 +1,24 @@
+{% extends 'PaginasPresentacion/crear_tienda/base.html' %}
+
+{% block paso_content %}
+<h2>Crear tu tienda - Paso 1: Tus datos</h2>
+<form method="POST">
+
+  <label for="nombre_tienda">Nombre de la tienda</label>
+  <input type="text" name="nombre_tienda" required>
+    
+  <label>Nombre</label>
+  <input type="text" name="nombre" required>
+
+  <label>Apellidos</label>
+  <input type="text" name="apellidos" required>
+
+  <label>Email</label>
+  <input type="email" name="email" required>
+
+  <label>Teléfono</label>
+  <input type="text" name="telefono">
+
+  <button type="submit">Siguiente</button>
+</form>
+{% endblock %}

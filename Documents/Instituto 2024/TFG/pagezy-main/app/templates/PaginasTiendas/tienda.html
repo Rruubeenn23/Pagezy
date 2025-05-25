@@ -1,0 +1,108 @@
+{% extends 'PaginasTiendas/base_tienda.html' %}
+
+{% block title %}{{ nombre_tienda }} | Vapers de calidad{% endblock %}
+
+{% block content %}
+<section class="hero-tienda">
+  <div class="hero-contenido">
+    <h1>Bienvenido a {{ nombre_tienda }}</h1>
+    <p>Tu tienda especializada en vapers de confianza y calidad</p>
+    <a href="#productos" class="btn-ver-productos">Ver productos</a>
+  </div>
+</section>
+
+<section class="seccion-info">
+  <div class="contenedor-info">
+    <h2>¿Por qué elegirnos?</h2>
+    <p>Seleccionamos los mejores vapers del mercado con variedad de sabores y caladas. En {{ nombre_tienda }} garantizamos una experiencia premium.</p>
+  </div>
+</section>
+
+<section class="seccion-slider" id="productos">
+  <div class="contenedor-productos">
+    <h2>Productos destacados</h2>
+
+    <div class="slider-contenedor">
+      <button class="slider-btn slider-btn-prev" aria-label="Anterior">&#8592;</button>
+
+      <div class="slider-productos">
+        {% for producto in productos[:6] %}
+        <div class="tarjeta-producto">
+          <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+          <h3>{{ producto.nombre }}</h3>
+          {% if producto.caladas %}<p>{{ producto.caladas }} caladas</p>{% endif %}
+          <p class="precio">{{ producto.precio }} €</p>
+        </div>
+        {% endfor %}
+      </div>
+
+      <button class="slider-btn slider-btn-next" aria-label="Siguiente">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+
+<section class="seccion-categorias">
+  <div class="contenedor-categorias">
+    <h2>Tipos de vapers</h2>
+    <div class="categorias-grid">
+      <div class="categoria">
+        <h3>Desechables</h3>
+        <p>Fáciles de usar, sin mantenimiento. Ideal para empezar.</p>
+      </div>
+      <div class="categoria">
+        <h3>Recargables</h3>
+        <p>Mayor duración y ahorro. Perfectos para uso continuo.</p>
+      </div>
+      <div class="categoria">
+        <h3>Sabores Premium</h3>
+        <p>Explora sabores frutales, dulces y exóticos de alta calidad.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion-testimonios">
+  <div class="contenedor-testimonios">
+    <h2>Opiniones de nuestros clientes</h2>
+    <div class="testimonios-grid">
+      <div class="testimonio">
+        <p>"Excelente sabor y servicio rápido. Muy recomendable."</p>
+        <span>– Andrea G.</span>
+      </div>
+      <div class="testimonio">
+        <p>"Probé varios y este es mi favorito. Volveré a comprar."</p>
+        <span>– Luis R.</span>
+      </div>
+      <div class="testimonio">
+        <p>"La variedad de sabores es brutal. 10/10."</p>
+        <span>– Carla M.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion-faq">
+  <div class="contenedor-faq">
+    <h2>Preguntas frecuentes</h2>
+    <ul class="faq-lista">
+      <li><strong>¿Cuánto dura un vaper?</strong> Depende del modelo, pero ofrecemos desde 600 hasta 3000 caladas.</li>
+      <li><strong>¿Hacéis envíos?</strong> Sí, realizamos envíos rápidos a toda España.</li>
+      <li><strong>¿Qué garantía tengo?</strong> Todos nuestros productos están cubiertos por garantía de funcionamiento.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="seccion-final">
+  <div class="contenedor-final">
+    <h2>¿Listo para descubrir tu próximo sabor favorito?</h2>
+    <a href="#productos" class="btn-final">Explorar catálogo</a>
+  </div>
+</section>
+
+<script type="module" src="{{ url_for('static', filename='js/PaginasTiendas/tienda/tienda.js') }}"></script>
+
+
+{% endblock %}
+
+

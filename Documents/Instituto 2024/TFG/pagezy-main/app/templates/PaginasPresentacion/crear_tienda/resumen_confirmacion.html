@@ -1,0 +1,62 @@
+{% extends 'PaginasPresentacion/crear_tienda/base.html' %}
+
+{% block paso_content %}
+<h2>Resumen de tu tienda</h2>
+
+<h3>Información Personal</h3>
+<ul>
+  <li><strong>Nombre:</strong> {{ tienda.nombre }} {{ tienda.apellidos }}</li>
+  <li><strong>Email:</strong> {{ tienda.email }}</li>
+  <li><strong>Teléfono:</strong> {{ tienda.telefono }}</li>
+</ul>
+
+<h3>Logo de la tienda</h3>
+{% if tienda.logo_url %}
+  <img src="{{ tienda.logo_url }}" alt="Logo de la tienda" style="max-height: 100px;">
+{% else %}
+  <p><em>No has subido un logo.</em></p>
+{% endif %}
+
+
+<h3>Colores elegidos</h3>
+<ul>
+  <li><strong>Principal:</strong> <span style="background-color: {{ tienda.color_principal }};">{{ tienda.color_principal }}</span></li>
+  <li><strong>Secundario:</strong> <span style="background-color: {{ tienda.color_secundario }};">{{ tienda.color_secundario }}</span></li>
+  <li><strong>Fondo:</strong> <span style="background-color: {{ tienda.color_fondo }};">{{ tienda.color_fondo }}</span></li>
+</ul>
+
+<h3>Productos seleccionados</h3>
+<div class="explorador-productos">
+  {% for tipo, vapers in productos_por_tipo.items() %}
+  <div class="carpeta" data-tipo="{{ tipo }}">
+    <div class="cabecera-carpeta">
+      📁 {{ tipo }}
+      <button type="button" class="toggle-carpeta">Mostrar</button>
+    </div>
+    <div class="contenido-carpeta">
+      {% for producto in vapers %}
+      <div class="producto-vaper">
+        <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+        <span>{{ producto.nombre }} ({{ producto.caladas }} caladas)</span>
+        <p><strong>Precio:</strong> {{ producto.precio }} €</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<form method="POST">
+  <button type="submit">Confirmar y crear mi tienda</button>
+</form>
+<script type="module" src="{{ url_for('static', filename='js/PaginasPresentacion/crear_tienda/componentes/paso3.js') }}"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("etiqueta-paso").textContent = "4";
+    document.getElementById("progreso").setAttribute("stroke-dasharray", "100, 100");
+  });
+</script>
+{% endblock %}
+
+<script type="module" src="{{ url_for('static', filename='js/PaginasPresentacion/crear_tienda/componentes/paso3.js') }}"></script>
