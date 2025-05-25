@@ -9,10 +9,9 @@ from sqlalchemy.orm import sessionmaker
 from app.models_tienda import db as db_tienda_modelo
 from app.models_tienda import Producto, Cliente, Administrador, Pedido, Compra, ConfiguracionVisual
 
-# Ruta base para las bases de datos de tiendas
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-TIENDAS_DIR = os.path.join(BASE_DIR, "instance", "tiendas")
-os.makedirs(TIENDAS_DIR, exist_ok=True)
+# Directorio de almacenamiento relativo
+TIENDAS_DIR = os.path.join("app", "instance", "tiendas")
+os.makedirs(os.path.join(os.getcwd(), TIENDAS_DIR), exist_ok=True)
 
 def finalizar_tienda(tienda_id):
     tienda = TiendaEnProceso.query.get(tienda_id)
@@ -20,13 +19,13 @@ def finalizar_tienda(tienda_id):
         raise ValueError("Tienda no encontrada o ya finalizada")
 
     nombre_db = f"{tienda.nombre_tienda}.db"
-    
-    # ✅ Ruta relativa respecto a Flask
-    relative_path = os.path.join("instance", "tiendas", nombre_db)
-    absolute_path = os.path.abspath(os.path.join(BASE_DIR, relative_path))
 
-    # Crear engine y session con ruta absoluta para SQLAlchemy
-    engine = create_engine(f"sqlite:///{absolute_path}")
+    # Ruta relativa con prefijo "/" y absoluta para trabajar internamente
+    ruta_relativa = f"app/instance/tiendas/{nombre_db}"
+    ruta_absoluta = os.path.abspath(os.path.join(os.getcwd(), TIENDAS_DIR, nombre_db))
+
+    # Crear engine y session
+    engine = create_engine(f"sqlite:///{ruta_absoluta}")
     Session = sessionmaker(bind=engine)
     session = Session()
 
@@ -52,12 +51,12 @@ def finalizar_tienda(tienda_id):
         )
         session.add(producto)
 
-    # Insertar configuración visual
+    # Configuración visual
     configuracion = ConfiguracionVisual(
         color_principal=tienda.color_principal,
         color_secundario=tienda.color_secundario,
         color_fondo=tienda.color_fondo,
-        logo_url=tienda.logo_url,
+        logo_url=tienda.logo_url,  # Ya debe incluir la "/" al guardarse antes
         plantilla=tienda.plantilla,
         titulo_tienda=tienda.titulo_tienda,
         imagenes_tienda=tienda.imagenes_tienda,
@@ -68,8 +67,8 @@ def finalizar_tienda(tienda_id):
     )
     session.add(configuracion)
 
+    # Guardar o actualizar tienda pública
     tienda_publica = TiendaPublica.query.filter_by(nombre_tienda=tienda.nombre_tienda).first()
-
     if not tienda_publica:
         tienda_publica = TiendaPublica(
             nombre_tienda=tienda.nombre_tienda,
@@ -80,9 +79,9 @@ def finalizar_tienda(tienda_id):
         )
         db.session.add(tienda_publica)
 
-    # ✅ Guarda la ruta RELATIVA
-    tienda_publica.ruta_db = relative_path
-    tienda.ruta_db_tienda = relative_path
+    # Guardar ruta relativa
+    tienda_publica.ruta_db = ruta_relativa
+    tienda.ruta_db_tienda = ruta_relativa
     tienda.finalizado = True
 
     session.commit()
